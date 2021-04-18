@@ -1,0 +1,19 @@
+img {
+  height: clamp(100px, 25vh, 200px);
+  margin: auto 0 auto 0;
+  border: solid;
+  border-width: 1px;
+}
+
+.itemDisplay {
+  display: flex;
+  border: solid;
+  margin: 1ch;
+  padding: 1ch;
+}
+
+.itemDetails {
+  text-align: left;
+  white-space: pre-wrap;
+  padding: 0 1ch;
+}

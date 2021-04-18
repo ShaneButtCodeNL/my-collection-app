@@ -1,0 +1,17 @@
+#navBar {
+  list-style: none;
+  padding: 0.5em;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 90vw;
+}
+
+.navItem {
+  flex: 1 1 15%;
+  border: solid;
+  cursor: pointer;
+  line-height: 200%;
+  min-width: 12ch;
+}

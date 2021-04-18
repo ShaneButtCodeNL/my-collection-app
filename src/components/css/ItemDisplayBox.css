@@ -1,0 +1,31 @@
+button {
+  margin: 0 1ch;
+}
+
+.controlButton {
+  line-height: 2em;
+}
+
+#items {
+  flex: 1 1;
+}
+
+#itemDisplayBox {
+  display: flex;
+  overflow: auto;
+  width: clamp(300px, 70%, 900px);
+  justify-content: center;
+  border: none;
+}
+
+#itemDisplayController {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 1ch;
+  margin: 1ch;
+  border-left: solid;
+  border-width: 1px;
+}
