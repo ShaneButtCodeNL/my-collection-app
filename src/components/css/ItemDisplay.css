@@ -1,19 +1,26 @@
 img {
-  height: clamp(100px, 25vh, 200px);
+  height: clamp(70px, 95%, 200px);
+  width: clamp(80px, 20%, 140px);
+  aspect-ratio: 3/2;
   margin: auto 0 auto 0;
   border: solid;
   border-width: 1px;
 }
 
 .itemDisplay {
+  height: clamp(100px, 25vh, 220px);
   display: flex;
   border: solid;
-  margin: 1ch;
-  padding: 1ch;
+  margin: 1ch 0ch;
+  padding: 0.5ch 1.5ch;
 }
 
 .itemDetails {
   text-align: left;
   white-space: pre-wrap;
   padding: 0 1ch;
+}
+
+.detailName {
+  width: 14ch;
 }
