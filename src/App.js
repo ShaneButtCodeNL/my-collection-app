@@ -3,6 +3,10 @@ import axios from "axios";
 import "./app.css";
 import ItemDisplayBox from "./components/ItemDisplayBox";
 import ItemTypeSelectBar from "./components/ItemTypeSelectBar";
+import LoginWindow from "./components/LoginWindow";
+
+const thirtySecs = 30000;
+const threeMin = 180000;
 
 //Types of Items
 const itemTypes = ["All", "Manga", "Anime", "Figure", "Video Game"];
@@ -11,6 +15,18 @@ function App() {
   const [selectedItemType, setSelectedItemType] = useState(0);
   const [itemList, setItemList] = useState([]);
   const [filteredItemList, setFilterdItemList] = useState(itemList);
+  const [showLogin, setShowLogin] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const login = (un, pw) => {
+    setUserName(un);
+    setPassword(pw);
+    setTimeout(() => {
+      setUserName("");
+      setPassword("");
+    }, thirtySecs);
+  };
 
   /**
    * Filters list by selected item type
@@ -45,8 +61,26 @@ function App() {
   }, [selectedItemType, itemList]);
   return (
     <div id="app" className={`${mode ? "dark" : "light"}Mode`}>
+      {showLogin ? (
+        <LoginWindow mode={mode} setShowLogin={setShowLogin} login={login} />
+      ) : (
+        <></>
+      )}
       <header>
-        <h1 id="title">My Collection</h1>
+        {userName.length ? (
+          <></>
+        ) : (
+          <button
+            id="loginButton"
+            className={`${mode ? "dark" : "light"}Mode`}
+            onClick={() => {
+              setShowLogin(true);
+            }}
+          >
+            Login
+          </button>
+        )}
+        <h1 id="title">My Collection {process.env.TEST === "test"}</h1>
         <button
           id="modeButton"
           onClick={() => setMode(mode ? 0 : 1)}
@@ -60,11 +94,26 @@ function App() {
         selectedItemType={selectedItemType}
         setSelectedItemType={setSelectedItemType}
       />
-      <ItemDisplayBox
-        itemList={filteredItemList}
-        mode={mode}
-        selectedItemType={selectedItemType}
-      />
+      {filteredItemList.length ? (
+        <ItemDisplayBox
+          itemList={filteredItemList}
+          mode={mode}
+          selectedItemType={selectedItemType}
+        />
+      ) : (
+        <p>No Items To Display.</p>
+      )}
+      <footer className={`${mode ? "dark" : "light"}Footer`}>
+        <span id="footerCredit" className="footerSpan">
+          Created by{" "}
+          <a
+            href="mailto:shanebuttcode@gmail.com"
+            className={`${mode ? "dark" : "light"}Link`}
+          >
+            Shane Butt
+          </a>
+        </span>
+      </footer>
     </div>
   );
 }

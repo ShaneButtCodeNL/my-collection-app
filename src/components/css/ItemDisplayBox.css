@@ -11,6 +11,7 @@ button {
 }
 
 #itemDisplayBox {
+  flex-grow: 1;
   display: flex;
   overflow: auto;
   width: clamp(300px, 70%, 900px);

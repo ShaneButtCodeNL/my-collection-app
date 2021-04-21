@@ -1,0 +1,43 @@
+#loginWindow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: none;
+  display: grid;
+  place-items: center;
+  z-index: 5;
+}
+
+#loginForm {
+  padding: 5ch;
+  border: ridge;
+  border-width: 1px;
+  border-radius: 1ch;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  row-gap: 1ch;
+}
+
+#userNameLabel {
+  grid-area: 1 / 1/ 2/3;
+}
+
+.labelFlex {
+  display: flex;
+  justify-content: space-between;
+}
+
+#passwordLabel {
+  grid-area: 2 /1 /3 / 3;
+}
+
+.darkWindow {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.lightWindow {
+  background-color: rgba(255, 255, 255, 0.9);
+}

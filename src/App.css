@@ -8,7 +8,24 @@ header {
   display: flex;
   width: 100%;
   justify-content: center;
+  padding: 1ch 0 0 0;
 }
+
+footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0.5ch 0 0.5ch 0;
+}
+
+.lightFooter {
+  background-color: rgba(120, 120, 120, 0.3);
+}
+
+.darkFooter {
+  background-color: rgba(70, 70, 75, 0.2);
+}
+
 h1 {
   margin: 0;
 }
@@ -28,13 +45,13 @@ button {
 }
 
 .darkMode {
-  color: whitesmoke;
-  background-color: black;
+  color: rgb(240, 240, 240);
+  background-color: rgb(0, 0, 5);
 }
 
 .lightMode {
-  color: black;
-  background-color: whitesmoke;
+  color: rgb(0, 0, 5);
+  background-color: rgb(240, 240, 240);
 }
 
 #title {
@@ -42,4 +59,32 @@ button {
 }
 #modeButton {
   flex: 0 1 auto;
+}
+
+.lightLink:link {
+  color: rgb(30, 30, 190);
+}
+
+.lightLink:hover {
+  color: rgb(60, 60, 160);
+}
+
+.lightLink:active {
+  color: rgb(150, 0, 0);
+}
+
+.darkLink:link {
+  color: rgb(80, 80, 200);
+}
+
+.darkLink:hover {
+  color: rgb(100, 100, 200);
+}
+
+.darkLink:link:active {
+  color: red;
+}
+
+.darkLink:visited {
+  color: rgb(50, 50, 150);
 }

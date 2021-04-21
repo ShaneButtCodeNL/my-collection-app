@@ -11,6 +11,7 @@ img {
   height: clamp(100px, 25vh, 220px);
   display: flex;
   border: solid;
+  border-radius: 1em;
   margin: 1ch 0ch;
   padding: 0.5ch 1.5ch;
 }
