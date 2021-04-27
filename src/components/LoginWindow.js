@@ -13,9 +13,10 @@ export default function LoginWindow(props) {
         className={`${props.mode ? "dark" : "light"}Window`}
         onSubmit={(event) => {
           event.preventDefault();
-          props.login(userName, password);
+          const loginInfo = { userName: userName, password: password };
           setUserName("");
           setPassword("");
+          props.login(loginInfo);
           props.setShowLogin(false);
         }}
       >
@@ -23,7 +24,7 @@ export default function LoginWindow(props) {
           <span style={{ margin: "0 1ch" }}>User Name</span>
           <input
             type="text"
-            id="userName"
+            id="userNameInput"
             name="userName"
             ref={userNameRef}
             onChange={() => setUserName(userNameRef.current.value)}
@@ -34,17 +35,14 @@ export default function LoginWindow(props) {
           <span style={{ margin: "0 1ch" }}>Password</span>
           <input
             type="password"
+            id="passwordInput"
             name="password"
             required
             ref={passwordRef}
             onChange={() => setPassword(passwordRef.current.value)}
           />
         </label>
-        <input
-          style={{ width: "100%", borderRadius: ".8em" }}
-          type="submit"
-          value="Login"
-        />
+        <input style={{ width: "100%" }} type="submit" value="Login" />
         <button
           style={{ width: "100%" }}
           onClick={() => {

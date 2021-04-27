@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-size: clamp(0.5rem, min(2vw, 3vh) + -0.3rem, 1.2rem);
+  font-size: clamp(0.5rem, min(2vw, 2.7vh) + -0.3rem, 1.2rem);
   font-family: Arial, Helvetica, sans-serif;
 }
 header {
@@ -30,6 +30,11 @@ h1 {
   margin: 0;
 }
 button {
+  border-radius: 0.8em;
+  line-height: 150%;
+  font-size: clamp(0.5rem, 2vw + -0.3rem, 0.9rem);
+}
+[type="submit"] {
   border-radius: 0.8em;
   line-height: 150%;
   font-size: clamp(0.5rem, 2vw + -0.3rem, 0.9rem);

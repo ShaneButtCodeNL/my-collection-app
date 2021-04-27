@@ -1,0 +1,15 @@
+TODOS:
+[X] Implement connection to database
+[X] Implement display of item
+[X] Implement display of several items
+[X] Implement Filter to items
+[X] Implement Chooseing a group of items to display
+        -Displays 3 items at time can choose which 3
+[X] Implement simple Login
+        -Login will allow editing/adding items
+[X] Implement Light/Dark Mode
+        -Defaults to Dark Mode
+[]  Implement adding new items to the database
+[]  Implemnt Editing items information
+
+BUGS:

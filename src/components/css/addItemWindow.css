@@ -1,0 +1,54 @@
+#addItemWindow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: none;
+  display: grid;
+  place-items: center;
+  z-index: 5;
+}
+
+#addItemForm {
+  border: ridge;
+  padding-bottom: 3ch;
+}
+
+#addItemContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: clamp(170px, 60vh, 1500px);
+  width: clamp(200px, 30vw, 330px);
+  align-items: flex-start;
+  padding: 3ch 5ch;
+}
+
+/*
+Labels in the addItemContainer
+*/
+#addItemContainer label {
+  text-align: left;
+  display: flex;
+}
+
+#addItemContainer input {
+  font-size: clamp(0.5rem, min(2vw, 3vh) + -0.3rem, 1.2rem);
+}
+
+#addItemContainer select {
+  font-size: clamp(0.5rem, min(2vw, 3vh) + -0.3rem, 1.2rem);
+}
+
+.darkWindow {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.lightWindow {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.addItemLabel {
+  width: 13ch;
+}

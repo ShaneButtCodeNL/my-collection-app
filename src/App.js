@@ -4,9 +4,11 @@ import "./app.css";
 import ItemDisplayBox from "./components/ItemDisplayBox";
 import ItemTypeSelectBar from "./components/ItemTypeSelectBar";
 import LoginWindow from "./components/LoginWindow";
+import AddItemWindow from "./components/AddItemWindow";
 
-const thirtySecs = 30000;
-const threeMin = 180000;
+const fiveMin = 300000;
+//Just for building and testing
+const APISERVER = "http://localhost:8000/";
 
 //Types of Items
 const itemTypes = ["All", "Manga", "Anime", "Figure", "Video Game"];
@@ -16,16 +18,19 @@ function App() {
   const [itemList, setItemList] = useState([]);
   const [filteredItemList, setFilterdItemList] = useState(itemList);
   const [showLogin, setShowLogin] = useState(false);
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [showAddItem, setShowAddItem] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  const login = (un, pw) => {
-    setUserName(un);
-    setPassword(pw);
+  const login = async (loginInfo) => {
+    const config = {
+      params: loginInfo,
+    };
+    const res = await axios.get(`${APISERVER}login`, config);
+    setLoggedIn(res.data.success);
+    if (res.data.success) console.log("Logged In");
     setTimeout(() => {
-      setUserName("");
-      setPassword("");
-    }, thirtySecs);
+      setLoggedIn(false);
+    }, fiveMin);
   };
 
   /**
@@ -35,7 +40,6 @@ function App() {
    * @returns The list with a filter applied
    */
   const applyFilter = (itemList, itemType) => {
-    console.log("Item Type", itemType, itemTypes[itemType]);
     if (itemType === 0) return itemList;
     return [...itemList].filter(
       (item) => item.type.toUpperCase() === itemTypes[itemType].toUpperCase()
@@ -44,7 +48,7 @@ function App() {
 
   useEffect(() => {
     const apiList = async () => {
-      const res = await axios.get("http://localhost:8000/");
+      const res = await axios.get(APISERVER);
       if (res.data) {
         console.log("Fetch Successful");
         setItemList(
@@ -66,9 +70,23 @@ function App() {
       ) : (
         <></>
       )}
+      {showAddItem ? (
+        <AddItemWindow mode={mode} setShowAddItem={setShowAddItem} />
+      ) : (
+        <></>
+      )}
       <header>
-        {userName.length ? (
-          <></>
+        {loggedIn ? (
+          <button
+            id="addItemButton"
+            className={`${mode ? "dark" : "light"}Mode`}
+            onClick={() => {
+              console.log("Clicked add Item");
+              setShowAddItem(true);
+            }}
+          >
+            Add Item
+          </button>
         ) : (
           <button
             id="loginButton"
