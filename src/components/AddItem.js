@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 const AnimeGenres = [
+  "None",
   "Kodomo",
   "Shonen",
   "Shojo",
@@ -29,6 +30,7 @@ const AnimeGenres = [
   "Magic",
 ];
 const VideoGameGenres = [
+  "None",
   "Platform",
   "Shooter",
   "Beat em Up",
@@ -60,7 +62,9 @@ export default function AddItem(props) {
   const imgPathRef = useRef(null);
   const nameRef = useRef(null);
   const mediaTypeRef = useRef(null);
+  const releaseDateRef = useRef(null);
   const publisherRef = useRef(null);
+  const limitedEditionRef = useRef(null);
   const genreRefs = [useRef(null), useRef(null), useRef(null)];
   const sealedRef = useRef(null);
   const typeRef = useRef(null);
@@ -73,23 +77,27 @@ export default function AddItem(props) {
   const platformRef = useRef(null);
   const hasCaseRef = useRef(null);
 
-  const [itemType, setItemType] = useState(props.itemType);
-  const [imgPath, setImgPath] = useState();
-  const [name, setName] = useState("");
-  const [mediaType, setMediaType] = useState("DVD");
-  const [releaseDate, setReleaseDate] = useState(null);
-  const [publisher, setPublisher] = useState("");
-  const [genres, setGenres] = useState([]);
-  const [sealed, setSealed] = useState(false);
-  const [type, setType] = useState("");
-  const [from, setFrom] = useState("");
-  const [condition, setCondition] = useState("");
-  const [ageRestricted, setAgeRestricted] = useState(false);
-  const [series, setSeries] = useState("");
-  const [volume, setVolume] = useState(0);
-  const [author, setAuthor] = useState("");
-  const [platform, setPlatform] = useState("PS2");
-  const [hasCase, setHasCase] = useState("false");
+  const resetDetails = async (newItemType) => {
+    props.setItemType(newItemType);
+    props.setImagePath("");
+    imgPathRef.current.value = "";
+    props.setName("");
+    props.setMediaType("DVD");
+    props.setReleaseDate(null);
+    props.setPublisher("");
+    props.setLimitedEdition(false);
+    props.setGenres([]);
+    props.setSealed(false);
+    props.setType("");
+    props.setFrom("");
+    props.setCondition("");
+    props.setAgeRestricted(false);
+    props.setSeries("");
+    props.setVolume(0);
+    props.setAuthor("");
+    props.setPlatform("PS2");
+    props.setHasCase(false);
+  };
 
   const makeDetails = (itemType) => {
     if (itemType === "Anime") {
@@ -97,11 +105,25 @@ export default function AddItem(props) {
         <>
           <label htmlFor="name">
             <div className="addItemLabel">Name:</div>
-            <input id="name" name="name" />
+            <input
+              id="name"
+              name="name"
+              ref={nameRef}
+              onChange={() => {
+                props.setName(nameRef.current.value);
+              }}
+            />
           </label>
           <label htmlFor="mediaType">
             <div className="addItemLabel">Media Type:</div>
-            <select id="mediaType" defaultValue="DVD">
+            <select
+              id="mediaType"
+              defaultValue="DVD"
+              ref={mediaTypeRef}
+              onChange={() => {
+                props.setMediaType(mediaTypeRef.current.value);
+              }}
+            >
               <option value="DVD">DVD</option>
               <option value="BluRay">BluRay</option>
               <option value="VHS">VHS</option>
@@ -110,15 +132,38 @@ export default function AddItem(props) {
           </label>
           <label htmlFor="releaseDate">
             <div className="addItemLabel">Release Date:</div>
-            <input id="releaseDate" name="releaseDate" type="date" />
+            <input
+              id="releaseDate"
+              name="releaseDate"
+              type="date"
+              ref={releaseDateRef}
+              onChange={() =>
+                props.setReleaseDate(releaseDateRef.current.value)
+              }
+            />
           </label>
           <label htmlFor="publisher">
             <div className="addItemLabel">Publisher:</div>
-            <input id="publisher" name="publisher" type="text" />
+            <input
+              id="publisher"
+              name="publisher"
+              type="text"
+              ref={publisherRef}
+              onChange={() => props.setPublisher(publisherRef.current.value)}
+            />
           </label>
-          <label htmlFor="sealed">
+          <label htmlFor="limitedEdition">
             <div className="addItemLabel">Limited Edition:</div>
-            <select id="sealed" defaultValue="no">
+            <select
+              id="limitedEdition"
+              defaultValue="no"
+              ref={limitedEditionRef}
+              onChange={() => {
+                props.setLimitedEdition(
+                  limitedEditionRef.current.value === "no" ? false : true
+                );
+              }}
+            >
               <option value="no">No</option>
               <option value="yes">Yes</option>
             </select>
@@ -131,37 +176,93 @@ export default function AddItem(props) {
         <>
           <label htmlFor="type">
             <div className="addItemLabel">Type:</div>
-            <input id="type" name="type" type="text" />
+            <input
+              id="type"
+              name="type"
+              type="text"
+              ref={typeRef}
+              onChange={() => {
+                props.setType(typeRef.current.value);
+              }}
+            />
           </label>
           <label htmlFor="name">
             <div className="addItemLabel">Name:</div>
-            <input id="name" name="name" />
+            <input
+              id="name"
+              name="name"
+              ref={nameRef}
+              onChange={() => {
+                props.setName(nameRef.current.value);
+              }}
+            />
           </label>
           <label htmlFor="from">
             <div className="addItemLabel">From:</div>
-            <input id="from" name="from" />
+            <input
+              id="from"
+              name="from"
+              ref={fromRef}
+              onChange={() => {
+                props.setFrom(fromRef.current.value);
+              }}
+            />
           </label>
           <label htmlFor="condition">
             <div className="addItemLabel">Condition:</div>
-            <input id="condition" name="condition" />
+            <input
+              id="condition"
+              name="condition"
+              ref={conditionRef}
+              onChange={() => {
+                props.setCondition(conditionRef.current.value);
+              }}
+            />
           </label>
           <label htmlFor="sealed">
             <div className="addItemLabel">Sealed:</div>
-            <select id="sealed" name="sealed" defaultValue="no">
+            <select
+              id="sealed"
+              name="sealed"
+              defaultValue="no"
+              ref={sealedRef}
+              onChange={() => {
+                props.setSealed(
+                  sealedRef.current.value === "no" ? false : true
+                );
+              }}
+            >
               <option value="no">No</option>
               <option value="yes">Yes</option>
             </select>
           </label>
           <label htmlFor="ageRestricted">
             <div className="addItemLabel">Age Restricted:</div>
-            <select id="ageRestricted" name="ageRestricted" defaultValue="no">
+            <select
+              id="ageRestricted"
+              name="ageRestricted"
+              defaultValue="no"
+              ref={ageRestrictedRef}
+              onChange={() => {
+                props.setAgeRestricted(
+                  ageRestrictedRef.current.value === "no" ? false : true
+                );
+              }}
+            >
               <option value="no">No</option>
               <option value="yes">Yes</option>
             </select>
           </label>
           <label htmlFor="series">
             <div className="addItemLabel">Series:</div>
-            <input id="series" name="series" />
+            <input
+              id="series"
+              name="series"
+              ref={seriesRef}
+              onChange={() => {
+                props.setSeries(seriesRef.current.value);
+              }}
+            />
           </label>
         </>
       );
@@ -171,23 +272,60 @@ export default function AddItem(props) {
         <>
           <label htmlFor="Name">
             <div className="addItemLabel">Name:</div>
-            <input id="name" name="name" />
+            <input
+              id="name"
+              name="name"
+              ref={nameRef}
+              onChange={() => {
+                props.setName(nameRef.current.value);
+              }}
+            />
           </label>
           <label htmlFor="volume">
             <div className="addItemLabel">Volume:</div>
-            <input id="volume" name="volume" type="number" defaultValue="0" />
+            <input
+              id="volume"
+              name="volume"
+              type="number"
+              defaultValue="0"
+              ref={volumeRef}
+              onChange={() => {
+                props.setVolume(Number.parseInt(volumeRef.current.value));
+              }}
+            />
           </label>
           <label htmlFor="publisher">
             <div className="addItemLabel">Publisher:</div>
-            <input id="publisher" name="publisher" />
+            <input
+              id="publisher"
+              name="publisher"
+              ref={publisherRef}
+              onChange={() => {
+                props.setPublisher(publisherRef.current.value);
+              }}
+            />
           </label>
           <label htmlFor="author">
             <div className="addItemLabel">Author:</div>
-            <input id="author" name="author" />
+            <input
+              id="author"
+              name="author"
+              ref={authorRef}
+              onChange={() => {
+                props.setAuthor(authorRef.current.value);
+              }}
+            />
           </label>
           <label htmlFor="condition">
             <div className="addItemLabel">Condition:</div>
-            <input id="condition" name="condition" />
+            <input
+              id="condition"
+              name="condition"
+              ref={conditionRef}
+              onChange={() => {
+                props.setCondition(conditionRef.current.value);
+              }}
+            />
           </label>
         </>
       );
@@ -197,11 +335,27 @@ export default function AddItem(props) {
         <>
           <label htmlFor="Name">
             <div className="addItemLabel">Name:</div>
-            <input id="name" name="name" required />
+            <input
+              id="name"
+              name="name"
+              required
+              ref={nameRef}
+              onChange={() => {
+                props.setName(nameRef.current.value);
+              }}
+            />
           </label>
           <label htmlFor="mediaType">
             <div className="addItemLabel">Platform:</div>
-            <select id="platform" defaultValue="PS2" required>
+            <select
+              id="platform"
+              defaultValue="PS2"
+              required
+              ref={platformRef}
+              onChange={() => {
+                props.setPlatform(platformRef.current.value);
+              }}
+            >
               <option value="PS1">PS1</option>
               <option value="PS2">PS2</option>
               <option value="PS3">PS3</option>
@@ -228,34 +382,144 @@ export default function AddItem(props) {
           </label>
           <label htmlFor="publisher">
             <div className="addItemLabel">Publisher:</div>
-            <input id="publisher" name="publisher" />
+            <input
+              id="publisher"
+              name="publisher"
+              ref={publisherRef}
+              onChange={() => {
+                props.setPublisher(publisherRef.current.value);
+              }}
+            />
           </label>
           <label htmlFor="condition">
             <div className="addItemLabel">Condition:</div>
-            <input id="condition" name="condition" required />
+            <input
+              id="condition"
+              name="condition"
+              required
+              ref={conditionRef}
+              onChange={() => {
+                props.setCondition(conditionRef.current.value);
+              }}
+            />
           </label>
           <label htmlFor="releaseDate">
             <div className="addItemLabel">Release Date:</div>
-            <input id="releaseDate" name="releaseDate" type="date" />
+            <input
+              id="releaseDate"
+              name="releaseDate"
+              type="date"
+              ref={releaseDateRef}
+              onChange={() => {
+                props.setReleaseDate(releaseDateRef.current.value);
+              }}
+            />
           </label>
           <label>
             <div className="addItemLabel">Genres:</div>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <select></select>
-              <select></select>
-              <select></select>
+              <select
+                id="genreOne"
+                defaultValue="None"
+                ref={genreRefs[0]}
+                onChange={() => {
+                  const genres = [];
+                  genreRefs.forEach((ref) => {
+                    if (ref) {
+                      if (ref.current.value !== "None")
+                        genres.push(ref.current.value);
+                    }
+                  });
+                  props.setGenres([...genres]);
+                }}
+              >
+                {VideoGameGenres.map((genreName, index) => {
+                  return (
+                    <option key={index} value={genreName}>
+                      {genreName}
+                    </option>
+                  );
+                })}
+              </select>
+              <select
+                id="genreTwo"
+                defaultValue="None"
+                ref={genreRefs[1]}
+                onChange={() => {
+                  const genres = [];
+                  genreRefs.forEach((ref) => {
+                    if (ref) {
+                      if (ref.current.value !== "None")
+                        genres.push(ref.current.value);
+                    }
+                  });
+                  props.setGenres([...genres]);
+                }}
+              >
+                {VideoGameGenres.map((genreName, index) => {
+                  return (
+                    <option key={index} value={genreName}>
+                      {genreName}
+                    </option>
+                  );
+                })}
+              </select>
+              <select
+                id="genreThree"
+                defaultValue="None"
+                ref={genreRefs[2]}
+                onChange={() => {
+                  const genres = [];
+                  genreRefs.forEach((ref) => {
+                    if (ref) {
+                      if (ref.current.value !== "None")
+                        genres.push(ref.current.value);
+                    }
+                  });
+                  props.setGenres([...genres]);
+                }}
+              >
+                {VideoGameGenres.map((genreName, index) => {
+                  return (
+                    <option key={index} value={genreName}>
+                      {genreName}
+                    </option>
+                  );
+                })}
+              </select>
             </div>
           </label>
           <label htmlFor="sealed">
             <div className="addItemLabel">Sealed:</div>
-            <select id="sealed" name="sealed" defaultValue="no">
+            <select
+              id="sealed"
+              name="sealed"
+              defaultValue="no"
+              ref={sealedRef}
+              onChange={() => {
+                props.setSealed(
+                  sealedRef.current.value === "no" ? false : true
+                );
+              }}
+            >
               <option value="no">No</option>
               <option value="yes">Yes</option>
             </select>
           </label>
           <label htmlFor="hasCase">
             <div className="addItemLabel">Has Case:</div>
-            <select id="hasCase" name="hasCase" defaultValue="no" required>
+            <select
+              id="hasCase"
+              name="hasCase"
+              defaultValue="no"
+              required
+              ref={hasCaseRef}
+              onChange={() => {
+                props.setHasCase(
+                  hasCaseRef.current.value === "no" ? false : true
+                );
+              }}
+            >
               <option value="no">No</option>
               <option value="yes">Yes</option>
             </select>
@@ -274,7 +538,10 @@ export default function AddItem(props) {
           name="item"
           value={props.itemType}
           ref={itemTypeRef}
-          onChange={() => props.setItemType(itemTypeRef.current.value)}
+          onChange={async () => {
+            await resetDetails();
+            props.setItemType(itemTypeRef.current.value);
+          }}
           required
         >
           <option value="Anime">Anime</option>
@@ -291,7 +558,7 @@ export default function AddItem(props) {
           name="imagePath"
           ref={imgPathRef}
           onChange={() => {
-            props.setImgPath(imgPathRef.current.value);
+            props.setImagePath(imgPathRef.current.value);
           }}
           required
         />

@@ -5,42 +5,22 @@ import "./css/addItemWindow.css";
 export default function AddItemWindow(props) {
   const [itemType, setItemType] = useState(props.itemType || "Anime");
   const [imgPath, setImagePath] = useState("");
-  const [details, setDetails] = useState({
-    anime: {
-      name: null,
-      mediaType: "DVD",
-      releaseDate: null,
-      publisher: null,
-      genres: [],
-      limitedEdition: false,
-    },
-    figure: {
-      name: null,
-      condition: null,
-      from: null,
-      ageRestricted: false,
-      type: null,
-      sealed: false,
-      series: null,
-    },
-    manga: {
-      name: null,
-      volume: 0,
-      publisher: null,
-      author: null,
-      condition: null,
-    },
-    videoGame: {
-      name: null,
-      platform: null,
-      publisher: null,
-      condition: null,
-      releaseDate: null,
-      genres: [],
-      sealed: false,
-      hasCase: true,
-    },
-  });
+  const [name, setName] = useState("");
+  const [mediaType, setMediaType] = useState("DVD");
+  const [releaseDate, setReleaseDate] = useState(null);
+  const [publisher, setPublisher] = useState("");
+  const [limitedEdition, setLimitedEdition] = useState(false);
+  const [genres, setGenres] = useState([]);
+  const [sealed, setSealed] = useState(false);
+  const [type, setType] = useState("");
+  const [from, setFrom] = useState("");
+  const [condition, setCondition] = useState("");
+  const [ageRestricted, setAgeRestricted] = useState(false);
+  const [series, setSeries] = useState("");
+  const [volume, setVolume] = useState(0);
+  const [author, setAuthor] = useState("");
+  const [platform, setPlatform] = useState("PS2");
+  const [hasCase, setHasCase] = useState("false");
   return (
     <div
       id={"addItemWindow"}
@@ -58,8 +38,38 @@ export default function AddItemWindow(props) {
           setItemType={setItemType}
           imgPath={imgPath}
           setImagePath={setImagePath}
-          details={details}
-          setDetails={setDetails}
+          name={name}
+          setName={setName}
+          mediaType={mediaType}
+          setMediaType={setMediaType}
+          releaseDate={releaseDate}
+          setReleaseDate={setReleaseDate}
+          publisher={publisher}
+          setPublisher={setPublisher}
+          limitedEdition={limitedEdition}
+          setLimitedEdition={setLimitedEdition}
+          genres={genres}
+          setGenres={setGenres}
+          sealed={sealed}
+          setSealed={setSealed}
+          type={type}
+          setType={setType}
+          from={from}
+          setFrom={setFrom}
+          condition={condition}
+          setCondition={setCondition}
+          ageRestricted={ageRestricted}
+          setAgeRestricted={setAgeRestricted}
+          series={series}
+          setSeries={setSeries}
+          volume={volume}
+          setVolume={setVolume}
+          author={author}
+          setAuthor={setAuthor}
+          platform={platform}
+          setPlatform={setPlatform}
+          hasCase={hasCase}
+          setHasCase={setHasCase}
         />
         <input type="submit" value="ADD" style={{ width: "15ch" }} />
         <button

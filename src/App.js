@@ -79,7 +79,9 @@ function App() {
         {loggedIn ? (
           <button
             id="addItemButton"
-            className={`${mode ? "dark" : "light"}Mode`}
+            className={`${mode ? "dark" : "light"}Mode ${
+              mode ? "dark" : "light"
+            }Button`}
             onClick={() => {
               console.log("Clicked add Item");
               setShowAddItem(true);
@@ -90,7 +92,9 @@ function App() {
         ) : (
           <button
             id="loginButton"
-            className={`${mode ? "dark" : "light"}Mode`}
+            className={`${mode ? "dark" : "light"}Mode ${
+              mode ? "dark" : "light"
+            }Button`}
             onClick={() => {
               setShowLogin(true);
             }}
@@ -102,7 +106,9 @@ function App() {
         <button
           id="modeButton"
           onClick={() => setMode(mode ? 0 : 1)}
-          className={`${mode ? "dark" : "light"}Mode`}
+          className={`${mode ? "dark" : "light"}Mode ${
+            mode ? "dark" : "light"
+          }Button`}
           style={{ marginLeft: "1em" }}
         >{`${mode ? "Dark" : "Light"} Mode`}</button>
       </header>
@@ -112,15 +118,17 @@ function App() {
         selectedItemType={selectedItemType}
         setSelectedItemType={setSelectedItemType}
       />
-      {filteredItemList.length ? (
-        <ItemDisplayBox
-          itemList={filteredItemList}
-          mode={mode}
-          selectedItemType={selectedItemType}
-        />
-      ) : (
-        <p>No Items To Display.</p>
-      )}
+      <div className="itemBoxContainer">
+        {filteredItemList.length ? (
+          <ItemDisplayBox
+            itemList={filteredItemList}
+            mode={mode}
+            selectedItemType={selectedItemType}
+          />
+        ) : (
+          <p>No Items To Display.</p>
+        )}
+      </div>
       <footer className={`${mode ? "dark" : "light"}Footer`}>
         <span id="footerCredit" className="footerSpan">
           Created by{" "}

@@ -1,3 +1,7 @@
+NOTES:
+Finish setting up additems
+
+
 TODOS:
 [X] Implement connection to database
 [X] Implement display of item
@@ -10,6 +14,8 @@ TODOS:
 [X] Implement Light/Dark Mode
         -Defaults to Dark Mode
 []  Implement adding new items to the database
-[]  Implemnt Editing items information
+[]  Implement removeing items from the collection
+[]  Implement Editing items information
+[]  Implement filtered search
 
 BUGS:

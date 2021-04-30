@@ -5,6 +5,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 header {
+  flex: 0 1;
   display: flex;
   width: 100%;
   justify-content: center;
@@ -13,8 +14,10 @@ header {
 
 footer {
   width: 100%;
+  flex: 0 1;
   display: flex;
   justify-content: space-evenly;
+  margin-top: 1ch;
   padding: 0.5ch 0 0.5ch 0;
 }
 
@@ -50,7 +53,7 @@ button {
 }
 
 .darkMode {
-  color: rgb(240, 240, 240);
+  color: rgb(255, 235, 30);
   background-color: rgb(0, 0, 5);
 }
 
@@ -92,4 +95,23 @@ button {
 
 .darkLink:visited {
   color: rgb(50, 50, 150);
+}
+.darkButton {
+  font-weight: 600;
+  color: #000;
+  background-color: rgb(255, 235, 30);
+}
+
+.lightButton {
+  font-weight: 600;
+  color: #000;
+  background-color: rgb(184, 184, 184);
+}
+
+.itemBoxContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex: 1 1 75vh;
+  overflow: auto;
 }

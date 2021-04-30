@@ -1,6 +1,6 @@
 img {
   height: clamp(70px, 95%, 200px);
-  width: clamp(80px, 20%, 140px);
+  width: clamp(80px, 30%, 160px);
   aspect-ratio: 3/2;
   margin: auto 0 auto 0;
   border: solid;
@@ -8,18 +8,24 @@ img {
 }
 
 .itemDisplay {
-  height: clamp(100px, 25vh, 220px);
+  height: clamp(100px, 30%, 520px);
   display: flex;
   border: solid;
   border-radius: 1em;
-  margin: 1ch 0ch;
-  padding: 0.5ch 1.5ch;
 }
 
 .itemDetails {
   text-align: left;
   white-space: pre-wrap;
-  padding: 0 1ch;
+  padding: 0.5ch 2ch 0.5ch 2ch;
+  margin: auto 0;
+}
+
+.darkDetails {
+  background-color: rgba(10, 10, 10, 0.8);
+}
+.lightDetails {
+  background-color: rgba(240, 240, 240, 1);
 }
 
 .detailName {

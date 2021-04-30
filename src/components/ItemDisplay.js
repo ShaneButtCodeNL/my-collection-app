@@ -109,7 +109,9 @@ export default function ItemDisplay(props) {
     <fieldset className="itemDisplay">
       <legend>{props.item.type}</legend>
       <img src={props.item.imgPath} alt={props.alt} />
-      <div className="itemDetails">{formatDetails(props.item.details)}</div>
+      <div className={`itemDetails ${props.mode ? "dark" : "Light"}Details`}>
+        {formatDetails(props.item.details)}
+      </div>
     </fieldset>
   );
 }

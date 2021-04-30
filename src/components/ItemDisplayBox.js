@@ -66,7 +66,7 @@ export default function ItemDisplayBox(props) {
       }. Of a total of ${numberOfItems} items.`}</legend>
       <div id="items">
         {getSubArray().map((item, index) => {
-          return <ItemDisplay key={index} item={item} />;
+          return <ItemDisplay key={index} item={item} mode={props.mode} />;
         })}
       </div>
       <div
@@ -75,7 +75,7 @@ export default function ItemDisplayBox(props) {
       >
         <button
           id="incrementButton"
-          className="controlButton"
+          className={`controlButton ${props.mode ? "dark" : "light"}Button`}
           onClick={() => {
             incrementOffset();
           }}
@@ -84,7 +84,7 @@ export default function ItemDisplayBox(props) {
         </button>
         <button
           id="decrementButton"
-          className="controlButton"
+          className={`controlButton ${props.mode ? "dark" : "light"}Button`}
           onClick={() => {
             decrementOffset();
           }}

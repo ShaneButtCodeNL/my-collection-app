@@ -42,8 +42,14 @@ export default function LoginWindow(props) {
             onChange={() => setPassword(passwordRef.current.value)}
           />
         </label>
-        <input style={{ width: "100%" }} type="submit" value="Login" />
+        <input
+          style={{ width: "100%" }}
+          type="submit"
+          value="Login"
+          className={`${props.mode ? "dark" : "light"}Button`}
+        />
         <button
+          className={`${props.mode ? "dark" : "light"}Button`}
           style={{ width: "100%" }}
           onClick={() => {
             props.setShowLogin(false);
