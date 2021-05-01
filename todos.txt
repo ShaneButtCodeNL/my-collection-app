@@ -1,5 +1,5 @@
 NOTES:
-Finish setting up additems
+Fix release date for adding items to collection
 
 
 TODOS:
@@ -13,9 +13,12 @@ TODOS:
         -Login will allow editing/adding items
 [X] Implement Light/Dark Mode
         -Defaults to Dark Mode
-[]  Implement adding new items to the database
+[X]  Implement adding new items to the database
 []  Implement removeing items from the collection
 []  Implement Editing items information
 []  Implement filtered search
+[]  Implement better custom select tags
 
 BUGS:
+[]  When adding items release date it doesn't format properly
+[]  When decrementing a list that is %3 elements will load extra blank list

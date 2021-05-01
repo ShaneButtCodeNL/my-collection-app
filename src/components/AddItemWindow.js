@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import AddItem from "./AddItem";
 import "./css/addItemWindow.css";
 
@@ -21,6 +22,65 @@ export default function AddItemWindow(props) {
   const [author, setAuthor] = useState("");
   const [platform, setPlatform] = useState("PS2");
   const [hasCase, setHasCase] = useState("false");
+
+  const addItem = async () => {
+    const item = {
+      type: itemType,
+      imgPath: imgPath
+        ? imgPath
+        : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png",
+    };
+    if (itemType === "Anime") {
+      const details = {
+        name: name,
+        mediaType: mediaType,
+        publisher: publisher ? publisher : undefined,
+        condition: condition ? condition : undefined,
+        releaseDate: releaseDate ? releaseDate : undefined,
+        genres: genres,
+        limitedEdition: limitedEdition,
+      };
+      await axios.post(`${props.APISERVER}anime`, { ...item, details });
+    }
+    if (itemType === "Figure") {
+      const details = {
+        name: name,
+        condition: condition ? condition : undefined,
+        from: from ? from : undefined,
+        ageRestricted: ageRestricted,
+        type: type ? type : undefined,
+        sealed: sealed,
+        series: series ? series : undefined,
+      };
+      await axios.post(`${props.APISERVER}figure`, { ...item, details });
+    }
+    if (itemType === "Manga") {
+      const details = {
+        name: name,
+        volume: volume ? volume : 0,
+        publisher: publisher ? publisher : undefined,
+        author: author ? author : undefined,
+        condition: condition ? condition : undefined,
+      };
+      await axios.post(`${props.APISERVER}manga`, { ...item, details });
+    }
+    if (itemType === "Video Game") {
+      const details = {
+        name: name,
+        platform: platform,
+        publisher: publisher ? publisher : undefined,
+        condition: condition ? condition : undefined,
+        releaseDate: releaseDate ? releaseDate : undefined,
+        genres: genres,
+        sealed: sealed,
+        hasCase: hasCase,
+      };
+      await axios.post(`${props.APISERVER}videogame`, { ...item, details });
+    }
+    props.setShowAddItem(false);
+    props.reloadList();
+  };
+
   return (
     <div
       id={"addItemWindow"}
@@ -29,8 +89,9 @@ export default function AddItemWindow(props) {
       <form
         id="addItemForm"
         className={`${props.mode ? "dark" : "light"}Window`}
-        onSubmit={(event) => {
+        onSubmit={async (event) => {
           event.preventDefault();
+          await addItem();
         }}
       >
         <AddItem

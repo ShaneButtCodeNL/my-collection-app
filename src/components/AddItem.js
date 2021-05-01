@@ -130,6 +130,80 @@ export default function AddItem(props) {
               <option value="Digital">Digital</option>
             </select>
           </label>
+          <label>
+            <div className="addItemLabel">Genres:</div>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <select
+                id="genreOne"
+                defaultValue="None"
+                ref={genreRefs[0]}
+                onChange={() => {
+                  const genres = [];
+                  genreRefs.forEach((ref) => {
+                    if (ref) {
+                      if (ref.current.value !== "None")
+                        genres.push(ref.current.value);
+                    }
+                  });
+                  props.setGenres([...genres]);
+                }}
+              >
+                {AnimeGenres.map((genreName, index) => {
+                  return (
+                    <option key={index} value={genreName}>
+                      {genreName}
+                    </option>
+                  );
+                })}
+              </select>
+              <select
+                id="genreTwo"
+                defaultValue="None"
+                ref={genreRefs[1]}
+                onChange={() => {
+                  const genres = [];
+                  genreRefs.forEach((ref) => {
+                    if (ref) {
+                      if (ref.current.value !== "None")
+                        genres.push(ref.current.value);
+                    }
+                  });
+                  props.setGenres([...genres]);
+                }}
+              >
+                {AnimeGenres.map((genreName, index) => {
+                  return (
+                    <option key={index} value={genreName}>
+                      {genreName}
+                    </option>
+                  );
+                })}
+              </select>
+              <select
+                id="genreThree"
+                defaultValue="None"
+                ref={genreRefs[2]}
+                onChange={() => {
+                  const genres = [];
+                  genreRefs.forEach((ref) => {
+                    if (ref) {
+                      if (ref.current.value !== "None")
+                        genres.push(ref.current.value);
+                    }
+                  });
+                  props.setGenres([...genres]);
+                }}
+              >
+                {AnimeGenres.map((genreName, index) => {
+                  return (
+                    <option key={index} value={genreName}>
+                      {genreName}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </label>
           <label htmlFor="releaseDate">
             <div className="addItemLabel">Release Date:</div>
             <input
@@ -150,6 +224,18 @@ export default function AddItem(props) {
               type="text"
               ref={publisherRef}
               onChange={() => props.setPublisher(publisherRef.current.value)}
+            />
+          </label>
+          <label htmlFor="condition">
+            <div className="addItemLabel">Condition:</div>
+            <input
+              id="condition"
+              name="condition"
+              required
+              ref={conditionRef}
+              onChange={() => {
+                props.setCondition(conditionRef.current.value);
+              }}
             />
           </label>
           <label htmlFor="limitedEdition">

@@ -42,22 +42,31 @@ function App() {
   const applyFilter = (itemList, itemType) => {
     if (itemType === 0) return itemList;
     return [...itemList].filter(
-      (item) => item.type.toUpperCase() === itemTypes[itemType].toUpperCase()
+      (item) =>
+        item.type.toUpperCase() ===
+        (itemTypes[itemType] === "Video Game"
+          ? "videogame"
+          : itemTypes[itemType]
+        ).toUpperCase()
     );
   };
 
+  /**
+   * Fetches item List from server sorts by type
+   */
+  const apiList = async () => {
+    const res = await axios.get(APISERVER);
+    if (res.data) {
+      console.log("Fetch Successful");
+      setItemList(
+        res.data.sort((a, b) => {
+          return a.type.localeCompare(b.type);
+        })
+      );
+    }
+  };
+
   useEffect(() => {
-    const apiList = async () => {
-      const res = await axios.get(APISERVER);
-      if (res.data) {
-        console.log("Fetch Successful");
-        setItemList(
-          res.data.sort((a, b) => {
-            return a.type.localeCompare(b.type);
-          })
-        );
-      }
-    };
     apiList();
   }, []);
   useEffect(() => {
@@ -71,7 +80,12 @@ function App() {
         <></>
       )}
       {showAddItem ? (
-        <AddItemWindow mode={mode} setShowAddItem={setShowAddItem} />
+        <AddItemWindow
+          mode={mode}
+          setShowAddItem={setShowAddItem}
+          reloadList={apiList}
+          APISERVER={APISERVER}
+        />
       ) : (
         <></>
       )}
