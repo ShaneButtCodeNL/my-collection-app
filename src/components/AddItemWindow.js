@@ -36,7 +36,9 @@ export default function AddItemWindow(props) {
         mediaType: mediaType,
         publisher: publisher ? publisher : undefined,
         condition: condition ? condition : undefined,
-        releaseDate: releaseDate ? releaseDate : undefined,
+        releaseDate: releaseDate
+          ? releaseDate.toDateString().substr(4)
+          : undefined,
         genres: genres,
         limitedEdition: limitedEdition,
       };
@@ -70,7 +72,9 @@ export default function AddItemWindow(props) {
         platform: platform,
         publisher: publisher ? publisher : undefined,
         condition: condition ? condition : undefined,
-        releaseDate: releaseDate ? releaseDate : undefined,
+        releaseDate: releaseDate
+          ? releaseDate.toDateString().substr(4)
+          : undefined,
         genres: genres,
         sealed: sealed,
         hasCase: hasCase,

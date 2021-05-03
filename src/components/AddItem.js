@@ -211,9 +211,11 @@ export default function AddItem(props) {
               name="releaseDate"
               type="date"
               ref={releaseDateRef}
-              onChange={() =>
-                props.setReleaseDate(releaseDateRef.current.value)
-              }
+              onChange={() => {
+                let date = new Date(releaseDateRef.current.value);
+                date.setDate(date.getDate() + 1);
+                props.setReleaseDate(date);
+              }}
             />
           </label>
           <label htmlFor="publisher">
@@ -497,7 +499,9 @@ export default function AddItem(props) {
               type="date"
               ref={releaseDateRef}
               onChange={() => {
-                props.setReleaseDate(releaseDateRef.current.value);
+                let date = new Date(releaseDateRef.current.value);
+                date.setDate(date.getDate() + 1);
+                props.setReleaseDate(date);
               }}
             />
           </label>

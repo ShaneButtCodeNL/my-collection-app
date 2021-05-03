@@ -138,6 +138,8 @@ function App() {
             itemList={filteredItemList}
             mode={mode}
             selectedItemType={selectedItemType}
+            APISERVER={APISERVER}
+            reloadList={apiList}
           />
         ) : (
           <p>No Items To Display.</p>

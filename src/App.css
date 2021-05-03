@@ -3,6 +3,7 @@ body {
   padding: 0;
   font-size: clamp(0.5rem, min(2.5vw, 2.3vh) + -0.3rem, 1.2rem);
   font-family: Arial, Helvetica, sans-serif;
+  line-height: 1em;
 }
 header {
   flex: 0 1;
@@ -36,6 +37,16 @@ button {
   border-radius: 0.8em;
   line-height: 150%;
   font-size: clamp(0.5rem, 2vw + -0.3rem, 0.9rem);
+}
+.clickableDiv {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+.clickableDiv:hover {
+  cursor: pointer;
 }
 [type="submit"] {
   border-radius: 0.8em;

@@ -28,6 +28,10 @@ export default function ItemDisplayBox(props) {
         : numberOfItems - (numberOfItems % numberOfDisplays)
     );
   };
+
+  const reloadList = () => {
+    props.reloadList();
+  };
   /**
    * Gets an item from list based on the display offset
    * @param {number} n The 0 based position after the offset to return
@@ -66,7 +70,15 @@ export default function ItemDisplayBox(props) {
       }. Of a total of ${numberOfItems} items.`}</legend>
       <div id="items">
         {getSubArray().map((item, index) => {
-          return <ItemDisplay key={index} item={item} mode={props.mode} />;
+          return (
+            <ItemDisplay
+              key={index}
+              item={item}
+              mode={props.mode}
+              reloadList={reloadList}
+              APISERVER={props.APISERVER}
+            />
+          );
         })}
       </div>
       <div

@@ -1,4 +1,5 @@
 import "./css/ItemDisplay.css";
+import axios from "axios";
 
 export default function ItemDisplay(props) {
   const formatDetail = (detailName, detailData) => {
@@ -106,8 +107,29 @@ export default function ItemDisplay(props) {
   };
 
   return (
-    <fieldset className="itemDisplay">
+    <fieldset className="itemDisplay" style={{ position: "relative" }}>
       <legend>{props.item.type}</legend>
+      <div
+        unselectable="on"
+        className={`deleteItem ${
+          props.mode ? "dark" : "light"
+        }Mode clickableDiv`}
+        onClick={async () => {
+          let del = window.confirm(
+            `Are you sure you wish to delete the ${props.item.type}, ${props.item.details.name}`
+          );
+          console.log(`${props.APISERVER}${props.item.type}/${props.item._id}`);
+          console.log(`${props.item}`);
+          if (del) {
+            await axios.delete(
+              `${props.APISERVER}${props.item.type}/${props.item._id}`
+            );
+            props.reloadList();
+          }
+        }}
+      >
+        X
+      </div>
       <img src={props.item.imgPath} alt={props.alt} />
       <div className={`itemDetails ${props.mode ? "dark" : "Light"}Details`}>
         {formatDetails(props.item.details)}

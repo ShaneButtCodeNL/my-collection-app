@@ -1,5 +1,5 @@
 NOTES:
-Fix release date for adding items to collection
+
 
 
 TODOS:
@@ -14,7 +14,7 @@ TODOS:
 [X] Implement Light/Dark Mode
         -Defaults to Dark Mode
 [X]  Implement adding new items to the database
-[]  Implement removeing items from the collection
+[X]  Implement removeing items from the collection
 []  Implement Editing items information
 []  Implement filtered search
 []  Implement better custom select tags

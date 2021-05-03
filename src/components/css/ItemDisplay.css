@@ -8,9 +8,10 @@ img {
 }
 
 .itemDisplay {
-  height: clamp(100px, 30%, 520px);
+  height: clamp(100px, 29%, 520px);
   display: flex;
   border: solid;
+  margin: 0.5ch 0;
   border-radius: 1em;
 }
 
@@ -31,4 +32,12 @@ img {
 
 .detailName {
   width: 14ch;
+}
+
+.deleteItem {
+  position: absolute;
+  top: -1em;
+  right: 2ch;
+  z-index: 2;
+  padding: 0 0.5ch;
 }
