@@ -140,6 +140,7 @@ function App() {
             selectedItemType={selectedItemType}
             APISERVER={APISERVER}
             reloadList={apiList}
+            loggedIn={loggedIn}
           />
         ) : (
           <p>No Items To Display.</p>

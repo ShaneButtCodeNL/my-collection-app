@@ -8,11 +8,12 @@ img {
 }
 
 .itemDisplay {
-  height: clamp(100px, 29%, 520px);
+  height: clamp(115px, 29%, 520px);
   display: flex;
   border: solid;
   margin: 0.5ch 0;
   border-radius: 1em;
+  line-height: 1.2em;
 }
 
 .itemDetails {
@@ -33,11 +34,34 @@ img {
 .detailName {
   width: 14ch;
 }
+.detailDiv {
+  display: flex;
+  margin-top: 0.3ch;
+  margin-bottom: 0.3ch;
+}
 
 .deleteItem {
   position: absolute;
-  top: -1em;
+  top: -1.25em;
   right: 2ch;
   z-index: 2;
   padding: 0 0.5ch;
+}
+
+.editButton {
+  line-height: 1em;
+  padding: 0 0.5ch;
+  font-size: clamp(0.5rem, min(2.5vw, 2vh) + -0.3rem, 1.2rem);
+}
+.darkEditButton {
+  background-color: transparent;
+  border-color: rgba(50, 50, 50, 0.2);
+  color: rgb(255, 235, 30);
+  border-width: 1px;
+}
+.lightEditButton {
+  background-color: transparent;
+  border-color: rgba(200, 200, 200, 0.4);
+  color: black;
+  border-width: 1px;
 }

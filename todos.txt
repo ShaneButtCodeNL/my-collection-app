@@ -1,5 +1,5 @@
 NOTES:
-
+Implement the editing
 
 
 TODOS:
@@ -18,7 +18,8 @@ TODOS:
 []  Implement Editing items information
 []  Implement filtered search
 []  Implement better custom select tags
+[]  Implement LogOut
 
 BUGS:
-[]  When adding items release date it doesn't format properly
-[]  When decrementing a list that is %3 elements will load extra blank list
+[X]  When adding items release date it doesn't format properly
+[X]  When decrementing a list that is %3=0 elements will load extra blank list

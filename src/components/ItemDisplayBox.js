@@ -1,4 +1,9 @@
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowAltCircleDown,
+  faArrowAltCircleUp,
+} from "@fortawesome/free-solid-svg-icons";
 import "./css/ItemDisplayBox.css";
 import ItemDisplay from "./ItemDisplay";
 
@@ -6,6 +11,8 @@ const lessDarkColor = "rgba(100, 100, 100, .2)";
 const lessLightColor = "rgba(200, 200, 200, .2)";
 
 export default function ItemDisplayBox(props) {
+  const upArrow = <FontAwesomeIcon icon={faArrowAltCircleUp} />;
+  const downArrow = <FontAwesomeIcon icon={faArrowAltCircleDown} />;
   //Number of items to display
   const numberOfDisplays = 3;
   //Number of items in list
@@ -25,7 +32,10 @@ export default function ItemDisplayBox(props) {
     setDisplayOffset(
       displayOffset
         ? displayOffset - numberOfDisplays
-        : numberOfItems - (numberOfItems % numberOfDisplays)
+        : numberOfItems -
+            (numberOfItems % numberOfDisplays === 0
+              ? numberOfDisplays
+              : numberOfItems % numberOfDisplays)
     );
   };
 
@@ -59,7 +69,7 @@ export default function ItemDisplayBox(props) {
   }, [props.selectedItemType]);
   return (
     <fieldset id="itemDisplayBox">
-      <legend>{`Showing Items ${displayOffset + 1}${
+      <legend>{` Showing Items ${displayOffset + 1}${
         displayOffset + 1 < numberOfItems
           ? `, ${((displayOffset + 1) % numberOfItems) + 1}`
           : ""
@@ -77,6 +87,7 @@ export default function ItemDisplayBox(props) {
               mode={props.mode}
               reloadList={reloadList}
               APISERVER={props.APISERVER}
+              loggedIn={props.loggedIn}
             />
           );
         })}
@@ -92,7 +103,7 @@ export default function ItemDisplayBox(props) {
             incrementOffset();
           }}
         >
-          &uarr;
+          {upArrow}
         </button>
         <button
           id="decrementButton"
@@ -101,7 +112,7 @@ export default function ItemDisplayBox(props) {
             decrementOffset();
           }}
         >
-          &darr;
+          {downArrow}
         </button>
       </div>
     </fieldset>
