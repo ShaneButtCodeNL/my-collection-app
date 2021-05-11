@@ -11,6 +11,7 @@ TODOS:
         -Displays 3 items at time can choose which 3
 [X] Implement simple Login
         -Login will allow editing/adding items
+        -Login will time out with 5 mins of in activity
 [X] Implement Light/Dark Mode
         -Defaults to Dark Mode
 [X]  Implement adding new items to the database
@@ -18,7 +19,9 @@ TODOS:
 []  Implement Editing items information
 []  Implement filtered search
 []  Implement better custom select tags
-[]  Implement LogOut
+[]  Implement better custom Date inputs
+[X]  Implement LogOut
+[]  Reset Login timer when actions occurs
 
 BUGS:
 [X]  When adding items release date it doesn't format properly

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope as MAIL } from "@fortawesome/free-solid-svg-icons";
 import "./app.css";
 import ItemDisplayBox from "./components/ItemDisplayBox";
 import ItemTypeSelectBar from "./components/ItemTypeSelectBar";
@@ -20,7 +22,24 @@ function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [showAddItem, setShowAddItem] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loginTimer, setLoginTimer] = useState(null);
 
+  const emailIcon = <FontAwesomeIcon icon={MAIL} />;
+  const loginTimeOut = (time) => {
+    setLoginTimer(
+      setTimeout(() => {
+        setLoggedIn(false);
+      }, time)
+    );
+  };
+  const stopLoginTime = (timer) => {
+    clearTimeout(timer);
+  };
+
+  /**
+   * Logs into system to allow editing of the database
+   * @param {Object} loginInfo Login info
+   */
   const login = async (loginInfo) => {
     const config = {
       params: loginInfo,
@@ -28,9 +47,12 @@ function App() {
     const res = await axios.get(`${APISERVER}login`, config);
     setLoggedIn(res.data.success);
     if (res.data.success) console.log("Logged In");
-    setTimeout(() => {
-      setLoggedIn(false);
-    }, fiveMin);
+    loginTimeOut(fiveMin);
+  };
+
+  const logout = () => {
+    setLoggedIn(false);
+    stopLoginTime(loginTimer);
   };
 
   /**
@@ -116,6 +138,21 @@ function App() {
             Login
           </button>
         )}
+        {loggedIn ? (
+          <button
+            id="logoutButton"
+            className={`${mode ? "dark" : "light"}Mode ${
+              mode ? "dark" : "light"
+            }Button`}
+            onClick={() => {
+              logout();
+            }}
+          >
+            LOGOUT
+          </button>
+        ) : (
+          <></>
+        )}
         <h1 id="title">My Collection {process.env.TEST === "test"}</h1>
         <button
           id="modeButton"
@@ -148,13 +185,14 @@ function App() {
       </div>
       <footer className={`${mode ? "dark" : "light"}Footer`}>
         <span id="footerCredit" className="footerSpan">
-          Created by{" "}
+          Created by {emailIcon}{" "}
           <a
             href="mailto:shanebuttcode@gmail.com"
             className={`${mode ? "dark" : "light"}Link`}
           >
             Shane Butt
-          </a>
+          </a>{" "}
+          {emailIcon}
         </span>
       </footer>
     </div>

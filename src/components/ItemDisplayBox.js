@@ -88,6 +88,8 @@ export default function ItemDisplayBox(props) {
               reloadList={reloadList}
               APISERVER={props.APISERVER}
               loggedIn={props.loggedIn}
+              displayOffset={displayOffset}
+              selectedItemType={props.selectedItemType}
             />
           );
         })}

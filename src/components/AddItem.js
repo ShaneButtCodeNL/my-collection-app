@@ -433,7 +433,7 @@ export default function AddItem(props) {
               }}
             />
           </label>
-          <label htmlFor="mediaType">
+          <label htmlFor="platform">
             <div className="addItemLabel">Platform:</div>
             <select
               id="platform"
