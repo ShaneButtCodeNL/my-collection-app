@@ -22,7 +22,7 @@ const DETAIL_NAMES = {
 const ITEM_TYPES = {
   anime: "Anime",
   manga: "Manga",
-  videoGame: "Video Game",
+  videoGame: "VideoGame",
   figure: "Figure",
 };
 const AnimeGenres = [
@@ -99,6 +99,7 @@ export default function EditDetail(props) {
     console.log(detailData);
     switch (detailName) {
       case DETAIL_NAMES.ageRestricted:
+        console.log("AGE RESTRICTED: ", detailData);
         return (
           <select
             id="ageRestricted"
@@ -220,8 +221,8 @@ export default function EditDetail(props) {
       case DETAIL_NAMES.limitedEdition:
         return (
           <select
-            id="ageRestricted"
-            name="ageRestricted"
+            id="limitedEdition"
+            name="limitedEdition"
             defaultValue={detailData === "No" ? "no" : "yes"}
             ref={detailRef}
             onChange={() => {
@@ -263,7 +264,7 @@ export default function EditDetail(props) {
         return (
           <select
             id="platform"
-            defaultValue="PS2"
+            defaultValue={detail}
             ref={detailRef}
             onChange={() => {
               setDetail(detailRef.current.value);
@@ -376,58 +377,141 @@ export default function EditDetail(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let server = props.APISERVER;
-        console.log("ITEM", props.itemType, props.detailName);
+        console.log(
+          "ITEM=>",
+          props.itemType,
+          "\nDetailName=>",
+          props.detailName,
+          "\n"
+        );
+        //Set base root path for patching
         switch (props.itemType) {
           case ITEM_TYPES.anime:
             server += "anime/";
-            switch (props.detailName) {
-              case DETAIL_NAMES.name:
-                await axios.patch(`${server}name/${props.itemID}`, {
-                  details: { name: detail },
-                });
-                break;
-              case DETAIL_NAMES.condition:
-                await axios.patch(`${server}condition/${props.itemID}`, {
-                  details: { condition: detail },
-                });
-                break;
-              case DETAIL_NAMES.mediaType:
-                await axios.patch(`${server}media/${props.itemID}`, {
-                  details: { mediaType: detail },
-                });
-                break;
-              case DETAIL_NAMES.publisher:
-                await axios.patch(`${server}publisher/${props.itemID}`, {
-                  details: { publisher: detail },
-                });
-                break;
-              case DETAIL_NAMES.genres:
-                console.log(
-                  "Submitted:",
-                  detail,
-                  `${server}genre/${props.itemID}`
-                );
-                await axios.patch(`${server}genres/${props.itemID}`, {
-                  details: { genres: detail },
-                });
-                break;
-              case DETAIL_NAMES.releaseDate:
-                await axios.patch(`${server}releasedate/${props.itemID}`);
-                break;
-              case DETAIL_NAMES.limitedEdition:
-                const b = detail === "yes";
-                console.log("GOT IN LE", b);
-                await axios.patch(`${server}limitededition/${props.itemID}`, {
-                  details: { limitedEdition: b },
-                });
-                break;
-              default:
-                break;
-            }
+            break;
+          case ITEM_TYPES.figure:
+            server += "figure/";
+            break;
+          case ITEM_TYPES.manga:
+            server += "manga/";
+            break;
+          case ITEM_TYPES.videoGame:
+            server += "videogame/";
             break;
           default:
             break;
         }
+        switch (props.detailName) {
+          //Figure
+          case DETAIL_NAMES.ageRestricted:
+            const age = detail === "yes";
+            console.log(age, detail);
+            await axios.patch(`${server}agerestricted/${props.itemID}`, {
+              details: { ageRestricted: age },
+            });
+            break;
+          //Manga
+          case DETAIL_NAMES.author:
+            await axios.patch(`${server}author/${props.itemID}`, {
+              details: { author: detail },
+            });
+            break;
+          //Anime Figure Manga VideoGame
+          case DETAIL_NAMES.condition:
+            await axios.patch(`${server}condition/${props.itemID}`, {
+              details: { condition: detail },
+            });
+            break;
+          //Figure
+          case DETAIL_NAMES.from:
+            await axios.patch(`${server}from/${props.itemID}`, {
+              details: { from: detail },
+            });
+            break;
+          //Anime VideoGame
+          case DETAIL_NAMES.genres:
+            console.log("Submitted:", detail, `${server}genre/${props.itemID}`);
+            await axios.patch(`${server}genres/${props.itemID}`, {
+              details: { genres: detail },
+            });
+            break;
+          //VideoGame
+          case DETAIL_NAMES.hasCase:
+            const hasCaseBoolean = detail === "yes";
+            await axios.patch(`${server}hascase/${props.itemID}`, {
+              details: { hasCase: hasCaseBoolean },
+            });
+            break;
+          //VideoGame
+          case DETAIL_NAMES.platform:
+            await axios.patch(`${server}platform/${props.itemID}`, {
+              details: { platform: detail },
+            });
+            break;
+          //Figure VideoGame
+          case DETAIL_NAMES.sealed:
+            const sealedBoolean = detail === "yes";
+            await axios.patch(`${server}sealed/${props.itemID}`, {
+              details: { sealed: sealedBoolean },
+            });
+            break;
+          //Figure
+          case DETAIL_NAMES.series:
+            await axios.patch(`${server}series/${props.itemID}`, {
+              details: { series: detail },
+            });
+            break;
+          //Figure
+          case DETAIL_NAMES.type:
+            await axios.patch(`${server}type/${props.itemID}`, {
+              details: { type: detail },
+            });
+            break;
+          //Manga
+          case DETAIL_NAMES.volume:
+            await axios.patch(`${server}volume/${props.itemID}`, {
+              details: { volume: detail },
+            });
+            break;
+          //Anime Figure Manga VideoGame
+          case DETAIL_NAMES.name:
+            await axios.patch(`${server}name/${props.itemID}`, {
+              details: { name: detail },
+            });
+            break;
+          //Anime
+          case DETAIL_NAMES.mediaType:
+            await axios.patch(`${server}media/${props.itemID}`, {
+              details: { mediaType: detail },
+            });
+            break;
+          //Anime Manga
+          case DETAIL_NAMES.publisher:
+            await axios.patch(`${server}publisher/${props.itemID}`, {
+              details: { publisher: detail },
+            });
+            break;
+          //Anime VideoGame
+          case DETAIL_NAMES.releaseDate:
+            let date = new Date(detailRef.current.value);
+            date.setDate(date.getDate() + 1);
+            await axios.patch(`${server}releasedate/${props.itemID}`, {
+              details: { releaseDate: date },
+            });
+            break;
+          //Anime
+          case DETAIL_NAMES.limitedEdition:
+            const b = detail === "yes";
+            await axios.patch(`${server}limitededition/${props.itemID}`, {
+              details: { limitedEdition: b },
+            });
+            break;
+          default:
+            break;
+        }
+
+        await props.reloadList();
+        props.resetStates();
       }}
     >
       {renderInputs(
