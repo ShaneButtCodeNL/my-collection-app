@@ -2,7 +2,7 @@ import "./css/ItemDisplay.css";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import EditDetail from "./EditDetail";
 
 const DETAIL_NAMES = {
@@ -25,7 +25,8 @@ const DETAIL_NAMES = {
 };
 
 export default function ItemDisplay(props) {
-  const [showName, setShowName] = useState();
+  const [showImgPath, setShowImagePath] = useState(false);
+  const [showName, setShowName] = useState(false);
   const [showMediaType, setShowMediaType] = useState(false);
   const [showReleaseDate, setShowReleaseDate] = useState(false);
   const [showPublisher, setShowPublisher] = useState(false);
@@ -42,7 +43,12 @@ export default function ItemDisplay(props) {
   const [showPlatform, setShowPlatform] = useState(false);
   const [showHasCase, setShowHasCase] = useState(false);
 
+  const [imgPath, setImgPath] = useState(props.item.imgPath);
+
+  const imgPathRef = useRef(null);
+
   const resetStates = () => {
+    setShowImagePath(false);
     setShowAgeRestricted(false);
     setShowAuthor(false);
     setShowCondition(false);
@@ -147,182 +153,6 @@ export default function ItemDisplay(props) {
     if (detailName === DETAIL_NAMES.type) return setShowType(!showType);
     if (detailName === DETAIL_NAMES.volume) return setShowVolume(!showVolume);
   };
-
-  const confirmEdit = (itemType, itemID, detailName, details) => {
-    if (!itemType) return;
-    if (itemType === "Anime") {
-      if (detailName === DETAIL_NAMES.name) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName} => Name\nDetails . . . \n${details}`
-        );
-        setShowName(true);
-      }
-      if (detailName === DETAIL_NAMES.mediaType) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName} => Media Type\nDetails . . . \n${details}`
-        );
-        setShowMediaType(true);
-      }
-      if (detailName === DETAIL_NAMES.releaseDate) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName} => Release Date\nDetails . . . \n${details}`
-        );
-        setShowReleaseDate(true);
-      }
-      if (detailName === DETAIL_NAMES.publisher) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName} => Publisher\nDetails . . . \n${details}`
-        );
-        setShowPublisher(true);
-      }
-      if (detailName === DETAIL_NAMES.limitedEdition) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName} => Limited Edition\nDetails . . . \n${details}`
-        );
-        setShowLimitedEdition(true);
-      }
-      if (detailName === DETAIL_NAMES.condition) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName} => Condition\nDetails . . . \n${details}`
-        );
-        setShowCondition(true);
-      }
-      if (detailName === DETAIL_NAMES.genres) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName} => Genres\nDetails . . . Size: ${details.length} \n${details}`
-        );
-        setShowGenres(true);
-      }
-    }
-    if (itemType === "Figure") {
-      if (detailName === DETAIL_NAMES.type) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowType(true);
-      }
-      if (detailName === DETAIL_NAMES.name) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowName(true);
-      }
-      if (detailName === DETAIL_NAMES.from) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowFrom(true);
-      }
-      if (detailName === DETAIL_NAMES.condition) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowCondition(true);
-      }
-      if (detailName === DETAIL_NAMES.sealed) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowSealed(true);
-      }
-      if (detailName === DETAIL_NAMES.ageRestricted) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowAgeRestricted(true);
-      }
-      if (detailName === DETAIL_NAMES.series) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowSeries(true);
-      }
-    }
-    if (itemType === "Manga") {
-      if (detailName === DETAIL_NAMES.name) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowName(true);
-      }
-      if (detailName === DETAIL_NAMES.volume) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowVolume(true);
-      }
-      if (detailName === DETAIL_NAMES.publisher) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowPublisher(true);
-      }
-      if (detailName === DETAIL_NAMES.author) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowAuthor(true);
-      }
-      if (detailName === DETAIL_NAMES.condition) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowCondition(true);
-      }
-    }
-    if (itemType === "VideoGame") {
-      if (detailName === DETAIL_NAMES.name) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowName(true);
-      }
-      if (detailName === DETAIL_NAMES.platform) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowPlatform(true);
-      }
-      if (detailName === DETAIL_NAMES.publisher) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowPublisher(true);
-      }
-      if (detailName === DETAIL_NAMES.condition) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowCondition(true);
-      }
-      if (detailName === DETAIL_NAMES.releaseDate) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowReleaseDate(true);
-      }
-      if (detailName === DETAIL_NAMES.genres) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowGenres(true);
-      }
-      if (detailName === DETAIL_NAMES.sealed) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowSealed(true);
-      }
-      if (detailName === DETAIL_NAMES.hasCase) {
-        console.log(
-          `ID: ${itemID}\nType: ${itemType}\nDetail Name: ${detailName}\nDetails . . . \n${details}`
-        );
-        setShowHasCase(true);
-      }
-    }
-    return;
-  };
-
   const formatDetail = (itemType, itemID, detailName, detailData) => {
     //If detail data is a boolean value will display "yes" for true and "No" for false
     if (detailData === true) detailData = "Yes";
@@ -592,7 +422,56 @@ export default function ItemDisplay(props) {
       ) : (
         <></>
       )}
-      <img src={props.item.imgPath} alt={props.alt} />
+      <div className="imgBox">
+        <img src={props.item.imgPath} alt={props.alt} />
+        {props.loggedIn ? (
+          <div
+            className="editImgDiv"
+            style={showImgPath ? { width: "100%" } : {}}
+          >
+            {showImgPath ? (
+              <form
+                className="imgPathEditForm"
+                onSubmit={async (event) => {
+                  event.preventDefault();
+                  const server =
+                    props.APISERVER +
+                    props.item.type.toLowerCase() +
+                    "/imagepath/" +
+                    props.item._id;
+                  console.log(server);
+                  await axios.patch(server, {
+                    imgPath: imgPath,
+                  });
+                  props.reloadList();
+                }}
+              >
+                <input
+                  className="imgPathEditInput"
+                  defaultValue={props.item.imgPath}
+                  ref={imgPathRef}
+                  onChange={() => {
+                    setImgPath(imgPathRef.current.value);
+                  }}
+                />
+                <input type="submit" value="Change" />
+              </form>
+            ) : (
+              <></>
+            )}
+            <button
+              onClick={() => setShowImagePath(!showImgPath)}
+              className={`editImgButton ${
+                props.mode ? "dark" : "light"
+              }EditImgButton`}
+            >
+              {editText}
+            </button>
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
       <div className={`itemDetails ${props.mode ? "dark" : "Light"}Details`}>
         {formatDetails(props.item.type, props.item._id, props.item.details)}
       </div>

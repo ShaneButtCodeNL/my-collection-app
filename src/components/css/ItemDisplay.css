@@ -1,7 +1,55 @@
 img {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.editImgDiv {
+  padding: 0.5ch 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  max-width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-color: rgba(50, 50, 50, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+  border-width: 1px;
+  border-radius: 0.8em;
+}
+.imgPathEditForm {
+  flex: 1 1;
+  margin: auto 0;
+}
+.imgPathEditInput {
+  width: 85%;
+  line-height: clamp(0.5em, min(2.3vw, 1.8vh) + -0.4em, 5em);
+  font-size: clamp(0.5rem, min(2.5vw, 2vh) + -0.3rem, 1.2rem);
+}
+.editImgButton {
+  padding: 0 0.2ch 0.2ch 0.4ch;
+  margin: 0.3ch;
+  text-align: center;
+  flex: 0 1;
+}
+.darkEditImgButton {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-color: rgba(50, 50, 50, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+  border-width: 1px;
+}
+.lightEditImgButton {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-color: rgba(200, 200, 200, 0.4);
+  color: rgba(0, 0, 0, 0.8);
+  border-width: 1px;
+}
+
+.imgBox {
+  position: relative;
   height: clamp(70px, 95%, 300px);
   width: clamp(80px, 30%, 160px);
-  aspect-ratio: 3/2;
   margin: auto 0 auto 0;
   border: solid;
   border-width: 1px;

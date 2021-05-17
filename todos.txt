@@ -16,8 +16,11 @@ TODOS:
         -Defaults to Dark Mode
 [X]  Implement adding new items to the database
 [X]  Implement removeing items from the collection
-[]  Implement Editing items information
+[X]  Implement Editing items information
+        -Details are now editable
+        -ImgPath is now editable
 []  Implement filtered search
+[]  improve sizes for edit info boxes
 []  Implement better custom select tags
 []  Implement better custom Date inputs
 [X]  Implement LogOut
