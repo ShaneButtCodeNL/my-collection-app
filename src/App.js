@@ -7,6 +7,7 @@ import ItemDisplayBox from "./components/ItemDisplayBox";
 import ItemTypeSelectBar from "./components/ItemTypeSelectBar";
 import LoginWindow from "./components/LoginWindow";
 import AddItemWindow from "./components/AddItemWindow";
+import Search from "./components/Search";
 
 const fiveMin = 300000;
 //Just for building and testing
@@ -23,8 +24,13 @@ function App() {
   const [showAddItem, setShowAddItem] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [loginTimer, setLoginTimer] = useState(null);
+  const [searchName, setSearchName] = useState(null);
 
   const emailIcon = <FontAwesomeIcon icon={MAIL} />;
+  /**
+   * Sets the timer until system logs user out
+   * @param {number} time
+   */
   const loginTimeOut = (time) => {
     setLoginTimer(
       setTimeout(() => {
@@ -32,8 +38,24 @@ function App() {
       }, time)
     );
   };
+
+  /**
+   * Stops the login timer
+   * @param {*} timer
+   */
   const stopLoginTime = (timer) => {
     clearTimeout(timer);
+  };
+
+  /**
+   * Stops login timer then restarts the login timer
+   * @param {*} timer
+   * @param {*} time
+   */
+  const resetLoginTimer = (timer, time) => {
+    console.log("Login timer reset");
+    stopLoginTime(timer);
+    loginTimeOut(time || fiveMin);
   };
 
   /**
@@ -61,7 +83,7 @@ function App() {
    * @param {String} itemType
    * @returns The list with a filter applied
    */
-  const applyFilter = (itemList, itemType) => {
+  const applyItemFilter = (itemList, itemType) => {
     if (itemType === 0) return itemList;
     return [...itemList].filter(
       (item) =>
@@ -71,6 +93,16 @@ function App() {
           : itemTypes[itemType]
         ).toUpperCase()
     );
+  };
+
+  const applySearchName = () => {
+    if (searchName) {
+      setFilterdItemList(
+        [...filteredItemList].filter((item) => {
+          return item.details.name === searchName;
+        })
+      );
+    }
   };
 
   /**
@@ -93,10 +125,23 @@ function App() {
     apiList();
   }, []);
   useEffect(() => {
-    setFilterdItemList(applyFilter(itemList, selectedItemType));
+    setFilterdItemList(applyItemFilter(itemList, selectedItemType));
   }, [selectedItemType, itemList]);
+  useEffect(() => {
+    applySearchName();
+    setSearchName(null);
+  }, [searchName]);
   return (
-    <div id="app" className={`${mode ? "dark" : "light"}Mode`}>
+    <div
+      id="app"
+      className={`${mode ? "dark" : "light"}Mode`}
+      onMouseMove={() => {
+        if (loggedIn) resetLoginTimer(loginTimer, fiveMin);
+      }}
+      onKeyDown={() => {
+        if (loggedIn) resetLoginTimer(loginTimer, fiveMin);
+      }}
+    >
       {showLogin ? (
         <LoginWindow mode={mode} setShowLogin={setShowLogin} login={login} />
       ) : (
@@ -163,6 +208,7 @@ function App() {
           }Button`}
           style={{ marginLeft: "1em" }}
         >{`${mode ? "Dark" : "Light"} Mode`}</button>
+        <Search mode={mode} setSearchName={setSearchName} />
       </header>
       <ItemTypeSelectBar
         items={itemTypes}

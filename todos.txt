@@ -24,7 +24,9 @@ TODOS:
 []  Implement better custom select tags
 []  Implement better custom Date inputs
 [X]  Implement LogOut
-[]  Reset Login timer when actions occurs
+[X]  Reset Login timer when actions occurs
+        -Timer resets on mouse move or key press
+[]  Instead of loading a div of 3 items load next and prev to allow smoother transitions
 
 BUGS:
 [X]  When adding items release date it doesn't format properly
