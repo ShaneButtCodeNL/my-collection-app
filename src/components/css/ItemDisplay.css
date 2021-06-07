@@ -6,10 +6,11 @@ img {
 }
 .editImgDiv {
   padding: 0.5ch 0;
+  margin: 0.1ch 1.5ch;
   position: absolute;
   top: 0;
   right: 0;
-  max-width: 100%;
+  max-width: 90%;
   display: flex;
   justify-content: flex-end;
   background-color: rgba(0, 0, 0, 0.5);
@@ -48,28 +49,57 @@ img {
 
 .imgBox {
   position: relative;
-  height: clamp(70px, 95%, 300px);
-  width: clamp(80px, 30%, 160px);
+  height: clamp(70px, 90%, 300px);
+  width: clamp(100px, 30%, 160px);
   margin: auto 0 auto 0;
-  border: solid;
-  border-width: 1px;
+  border-style: ridge;
+  border-width: 3px;
+  flex: 1 1 10%;
+  padding: 0;
+  border-radius: 2em;
+  overflow: hidden;
 }
-
+.darkImgBox {
+  border-color: rgba(255, 235, 30, 0.3);
+  border-top-color: rgba(255, 235, 30, 0.6);
+  border-right-color: rgba(255, 235, 30, 0.4);
+}
+.lightImgBox {
+  border-color: rgba(0, 0, 0, 0.3);
+  border-top-color: rgba(0, 0, 0, 0.6);
+  border-right-color: rgba(0, 0, 0, 0.6);
+  border-left-color: rgba(0, 0, 0, 0.4);
+}
+.itemDisplayWrapper {
+  position: relative;
+  height: clamp(115px, 30%, 520px);
+  padding: 0;
+  margin: calc(1.3ch + 2px) 0 calc(1.3ch + 0px) 0;
+}
 .itemDisplay {
-  height: clamp(115px, 29%, 520px);
+  position: relative;
+  height: 100%;
   display: flex;
   border: solid;
-  margin: 0.5ch 0;
+  margin: 0;
+  padding: 0 1em;
   border-radius: 1em;
   line-height: 1.2em;
 }
-
+.itemTypeLabel {
+  position: absolute;
+  top: calc(-1ch - 4px);
+  left: 2ch;
+  z-index: 2;
+  padding: 0 1ch;
+}
 .itemDetails {
   width: clamp(30ch, 60%, 40ch);
   text-align: left;
   white-space: pre-wrap;
   padding: 0.5ch 2ch 0.5ch 2ch;
   margin: auto 0;
+  flex: 3 1;
 }
 
 .darkDetails {
@@ -81,6 +111,11 @@ img {
 
 .detailName {
   width: 14ch;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.detailData {
+  flex: 1 1;
 }
 .detailDiv {
   display: flex;
@@ -88,12 +123,34 @@ img {
   margin-bottom: 0.3ch;
 }
 
+.darkTopButton {
+  border: outset;
+  border-width: 2px;
+  border-color: rgba(200, 200, 200, 0.2);
+  box-sizing: border-box;
+  border-radius: 50%;
+}
+.lightTopButton {
+  border: outset;
+  border-width: 2px;
+  border-color: rgba(200, 200, 200, 0.2);
+  box-sizing: border-box;
+  border-radius: 50%;
+}
+
 .deleteItem {
   position: absolute;
-  top: -1.25em;
+  top: calc(-1ch - 4px);
   right: 2ch;
   z-index: 2;
-  padding: 0 0.5ch;
+  padding: 0 1ch;
+}
+.addItemDetail {
+  position: absolute;
+  top: calc(-1ch - 4px);
+  right: calc(6ch + 4px);
+  z-index: 2;
+  padding: 0 1ch;
 }
 
 .editButton {

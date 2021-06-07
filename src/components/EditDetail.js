@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import axios from "axios";
+import TextInput from "./TextInput";
 
 const DETAIL_NAMES = {
   name: "Name",
@@ -96,7 +97,7 @@ export default function EditDetail(props) {
     setDetail([...listOfGenres]);
   };
   const renderInputs = (itemID, itemType, detailName, detailData) => {
-    console.log(detailData);
+    //console.log(detailData);
     switch (detailName) {
       case DETAIL_NAMES.ageRestricted:
         console.log("AGE RESTRICTED: ", detailData);
@@ -116,35 +117,29 @@ export default function EditDetail(props) {
         );
       case DETAIL_NAMES.author:
         return (
-          <input
-            type="text"
+          <TextInput
             ref={detailRef}
-            onChange={() => {
-              setDetail(detailRef.current.value);
-            }}
-            defaultValue={detail}
+            onChangeFunction={setDetail}
+            text={detail}
+            style={{ height: "1em", flexGrow: 1 }}
           />
         );
       case DETAIL_NAMES.condition:
         return (
-          <input
-            type="text"
+          <TextInput
             ref={detailRef}
-            onChange={() => {
-              setDetail(detailRef.current.value);
-            }}
-            defaultValue={detail}
+            onChangeFunction={setDetail}
+            text={detail}
+            style={{ height: "1em", flexGrow: 1 }}
           />
         );
       case DETAIL_NAMES.from:
         return (
-          <input
-            type="text"
+          <TextInput
             ref={detailRef}
-            onChange={() => {
-              setDetail(detailRef.current.value);
-            }}
-            defaultValue={detail}
+            onChangeFunction={setDetail}
+            text={detail}
+            style={{ height: "1em", flexGrow: 1 }}
           />
         );
       case DETAIL_NAMES.genres:
@@ -251,13 +246,11 @@ export default function EditDetail(props) {
         );
       case DETAIL_NAMES.name:
         return (
-          <input
-            type="text"
+          <TextInput
             ref={detailRef}
-            onChange={() => {
-              setDetail(detailRef.current.value);
-            }}
-            defaultValue={detail}
+            onChangeFunction={setDetail}
+            text={detail}
+            style={{ height: "1em", flexGrow: 1 }}
           />
         );
       case DETAIL_NAMES.platform:
@@ -296,13 +289,11 @@ export default function EditDetail(props) {
         );
       case DETAIL_NAMES.publisher:
         return (
-          <input
-            type="text"
+          <TextInput
             ref={detailRef}
-            onChange={() => {
-              setDetail(detailRef.current.value);
-            }}
-            defaultValue={detail}
+            onChangeFunction={setDetail}
+            text={detail}
+            style={{ height: "1em", flexGrow: 1 }}
           />
         );
       case DETAIL_NAMES.releaseDate:
@@ -336,24 +327,20 @@ export default function EditDetail(props) {
         );
       case DETAIL_NAMES.series:
         return (
-          <input
-            type="text"
+          <TextInput
             ref={detailRef}
-            onChange={() => {
-              setDetail(detailRef.current.value);
-            }}
-            defaultValue={detail}
+            onChangeFunction={setDetail}
+            text={detail}
+            style={{ height: "1em", flexGrow: 1 }}
           />
         );
       case DETAIL_NAMES.type:
         return (
-          <input
-            type="text"
+          <TextInput
             ref={detailRef}
-            onChange={() => {
-              setDetail(detailRef.current.value);
-            }}
-            defaultValue={detail}
+            onChangeFunction={setDetail}
+            text={detail}
+            style={{ height: "1em", flexGrow: 1 }}
           />
         );
       case DETAIL_NAMES.volume:
@@ -374,6 +361,7 @@ export default function EditDetail(props) {
 
   return (
     <form
+      style={{ display: "flex" }}
       onSubmit={async (event) => {
         event.preventDefault();
         let server = props.APISERVER;
@@ -520,7 +508,11 @@ export default function EditDetail(props) {
         props.detailName,
         props.detailData
       )}
-      <input type="submit" value="Change" />
+      <input
+        type="submit"
+        value="Change"
+        style={{ flexGrow: 0, flexShrink: 1 }}
+      />
     </form>
   );
 }

@@ -1,0 +1,25 @@
+#addDetailForm {
+  position: absolute;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 12ch 20ch;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  place-content: center;
+  row-gap: 1ch;
+}
+#addDetailForm input {
+  height: 1em;
+  line-height: 1em;
+}
+#addDetailForm select {
+  height: 1em;
+  line-height: 1em;
+}
+.inputEdit {
+  min-height: clamp(1em, 1em + 2vh, 1.5em);
+  padding: 0 1ch;
+  border: none;
+  border-radius: 1em;
+}

@@ -1,9 +1,14 @@
 import "./css/ItemDisplay.css";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faTrashAlt,
+  faPlusSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
 import EditDetail from "./EditDetail";
+import AddDetail from "./AddDetail";
 
 const DETAIL_NAMES = {
   name: "Name",
@@ -25,6 +30,7 @@ const DETAIL_NAMES = {
 };
 
 export default function ItemDisplay(props) {
+  const [showAddDetail, setShowAddDetail] = useState(false);
   const [showImgPath, setShowImagePath] = useState(false);
   const [showName, setShowName] = useState(false);
   const [showMediaType, setShowMediaType] = useState(false);
@@ -65,6 +71,7 @@ export default function ItemDisplay(props) {
     setShowSeries(false);
     setShowType(false);
     setShowVolume(false);
+    setShowAddDetail(false);
   };
 
   //Keeps states from transfering to different items
@@ -75,6 +82,7 @@ export default function ItemDisplay(props) {
 
   const editText = <FontAwesomeIcon icon={faEdit} />;
   const deleteIcon = <FontAwesomeIcon icon={faTrashAlt} />;
+  const addIcon = <FontAwesomeIcon icon={faPlusSquare} />;
 
   /**
    * Checks if we can show edit fields for an item detail
@@ -393,88 +401,110 @@ export default function ItemDisplay(props) {
   };
 
   return (
-    <fieldset className="itemDisplay" style={{ position: "relative" }}>
-      <legend>{props.item.type}</legend>
-      {props.loggedIn ? (
-        <div
-          unselectable="on"
-          className={`deleteItem ${
-            props.mode ? "dark" : "light"
-          }Mode clickableDiv`}
-          onClick={async () => {
-            let del = window.confirm(
-              `Are you sure you wish to delete the ${props.item.type}, ${props.item.details.name}`
-            );
-            console.log(
-              `${props.APISERVER}${props.item.type}/${props.item._id}`
-            );
-            console.log(`${props.item}`);
-            if (del) {
-              await axios.delete(
-                `${props.APISERVER}${props.item.type}/${props.item._id}`
-              );
-              props.reloadList();
-            }
-          }}
-        >
-          {deleteIcon}
-        </div>
+    <div className="itemDisplayWrapper">
+      {showAddDetail ? (
+        <AddDetail item={props.item} setShowAddDetail={setShowAddDetail} />
       ) : (
         <></>
       )}
-      <div className="imgBox">
-        <img src={props.item.imgPath} alt={props.alt} />
+      <div className="itemDisplay">
+        <span className={`${props.mode ? "dark" : "light"}Mode itemTypeLabel`}>
+          {props.item.type}
+        </span>
         {props.loggedIn ? (
           <div
-            className="editImgDiv"
-            style={showImgPath ? { width: "100%" } : {}}
+            unselectable="on"
+            className={`deleteItem ${
+              props.mode ? "dark" : "light"
+            }Mode clickableDiv ${props.mode ? "dark" : "light"}TopButton`}
+            onClick={async () => {
+              let del = window.confirm(
+                `Are you sure you wish to delete the ${props.item.type}, ${props.item.details.name}`
+              );
+              console.log(
+                `${props.APISERVER}${props.item.type}/${props.item._id}`
+              );
+              console.log(`${props.item}`);
+              if (del) {
+                await axios.delete(
+                  `${props.APISERVER}${props.item.type}/${props.item._id}`
+                );
+                props.reloadList();
+              }
+            }}
           >
-            {showImgPath ? (
-              <form
-                className="imgPathEditForm"
-                onSubmit={async (event) => {
-                  event.preventDefault();
-                  const server =
-                    props.APISERVER +
-                    props.item.type.toLowerCase() +
-                    "/imagepath/" +
-                    props.item._id;
-                  console.log(server);
-                  await axios.patch(server, {
-                    imgPath: imgPath,
-                  });
-                  props.reloadList();
-                }}
-              >
-                <input
-                  className="imgPathEditInput"
-                  defaultValue={props.item.imgPath}
-                  ref={imgPathRef}
-                  onChange={() => {
-                    setImgPath(imgPathRef.current.value);
-                  }}
-                />
-                <input type="submit" value="Change" />
-              </form>
-            ) : (
-              <></>
-            )}
-            <button
-              onClick={() => setShowImagePath(!showImgPath)}
-              className={`editImgButton ${
-                props.mode ? "dark" : "light"
-              }EditImgButton`}
-            >
-              {editText}
-            </button>
+            {deleteIcon}
           </div>
         ) : (
           <></>
         )}
+        {props.loggedIn ? (
+          <div
+            unselectable="on"
+            className={`addItemDetail ${
+              props.mode ? "dark" : "light"
+            }Mode clickableDiv ${props.mode ? "dark" : "light"}TopButton`}
+            onClick={async () => setShowAddDetail(true)}
+          >
+            {addIcon}
+          </div>
+        ) : (
+          <></>
+        )}
+        <div className={`imgBox ${props.mode ? "dark" : "light"}ImgBox`}>
+          <img src={props.item.imgPath} alt={props.alt} />
+          {props.loggedIn ? (
+            <div
+              className="editImgDiv"
+              style={showImgPath ? { width: "100%" } : {}}
+            >
+              {showImgPath ? (
+                <form
+                  className="imgPathEditForm"
+                  onSubmit={async (event) => {
+                    event.preventDefault();
+                    const server =
+                      props.APISERVER +
+                      props.item.type.toLowerCase() +
+                      "/imagepath/" +
+                      props.item._id;
+                    console.log(server);
+                    await axios.patch(server, {
+                      imgPath: imgPath,
+                    });
+                    props.reloadList();
+                  }}
+                >
+                  <input
+                    className="imgPathEditInput"
+                    defaultValue={props.item.imgPath}
+                    ref={imgPathRef}
+                    onChange={() => {
+                      setImgPath(imgPathRef.current.value);
+                    }}
+                  />
+                  <input type="submit" value="Change" />
+                </form>
+              ) : (
+                <></>
+              )}
+              <button
+                onClick={() => setShowImagePath(!showImgPath)}
+                className={`editImgButton ${
+                  props.mode ? "dark" : "light"
+                }EditImgButton`}
+              >
+                {editText}
+              </button>
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
+        <div className={`itemDetails ${props.mode ? "dark" : "Light"}Details`}>
+          {formatDetails(props.item.type, props.item._id, props.item.details)}
+        </div>
       </div>
-      <div className={`itemDetails ${props.mode ? "dark" : "Light"}Details`}>
-        {formatDetails(props.item.type, props.item._id, props.item.details)}
-      </div>
-    </fieldset>
+    </div>
   );
 }

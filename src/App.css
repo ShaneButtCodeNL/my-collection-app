@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
 body {
   margin: 0;
   padding: 0;
@@ -6,11 +8,31 @@ body {
   line-height: 1em;
 }
 header {
+  position: relative;
   flex: 0 1;
   display: flex;
   width: 100%;
   justify-content: center;
   padding: 1ch 0 0 0;
+  margin-bottom: 5px;
+}
+#headderButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  flex: 2.5 1;
+  height: 100%;
+}
+#headderButtonContainer button {
+  margin-bottom: 0.2em;
+  margin-top: auto;
+}
+#title {
+  white-space: nowrap;
+  font-family: "Lobster";
+  font-size: clamp(1.7rem, min(2.5vw, 2vh) + -0.3rem, 3rem);
+  flex: 1 1;
+  margin: auto 0.3ch auto 0;
 }
 
 footer {
@@ -30,9 +52,6 @@ footer {
   background-color: rgba(70, 70, 75, 0.2);
 }
 
-h1 {
-  margin: 0;
-}
 button {
   border-radius: 0.8em;
   line-height: 150%;
@@ -73,10 +92,6 @@ button {
   background-color: rgb(240, 240, 240);
 }
 
-#title {
-  flex: 0 1 auto;
-  margin: auto 0;
-}
 #modeButton {
   flex: 0 1 auto;
 }

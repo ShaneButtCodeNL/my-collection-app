@@ -19,8 +19,12 @@ TODOS:
 [X]  Implement Editing items information
         -Details are now editable
         -ImgPath is now editable
-[]  Implement filtered search
-[]  improve sizes for edit info boxes
+[]  Implement adding missing items
+[X]  Implement Name search
+        -Set up simple search if an item's name property contains the value it will be returned
+[]  Implement advance search
+[/]  improve sizes for edit info boxes
+        -Created custom textinput boxes need to implement
 []  Implement better custom select tags
 []  Implement better custom Date inputs
 [X]  Implement LogOut
@@ -31,3 +35,6 @@ TODOS:
 BUGS:
 [X]  When adding items release date it doesn't format properly
 [X]  When decrementing a list that is %3=0 elements will load extra blank list
+[X]  add detail breaks out of fieldset maybe use a div wrapper
+        -Replaced fieldset with a div
+[]  breaks around 311px width or 170px height

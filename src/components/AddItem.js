@@ -650,7 +650,6 @@ export default function AddItem(props) {
           onChange={() => {
             props.setImagePath(imgPathRef.current.value);
           }}
-          required
         />
       </label>
       {makeDetails(props.itemType)}

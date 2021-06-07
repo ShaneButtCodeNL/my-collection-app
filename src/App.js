@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope as MAIL } from "@fortawesome/free-solid-svg-icons";
@@ -8,7 +8,6 @@ import ItemTypeSelectBar from "./components/ItemTypeSelectBar";
 import LoginWindow from "./components/LoginWindow";
 import AddItemWindow from "./components/AddItemWindow";
 import Search from "./components/Search";
-
 const fiveMin = 300000;
 //Just for building and testing
 const APISERVER = "http://localhost:8000/";
@@ -98,9 +97,16 @@ function App() {
   const applySearchName = () => {
     if (searchName) {
       setFilterdItemList(
-        [...filteredItemList].filter((item) => {
-          return item.details.name === searchName;
-        })
+        applyItemFilter(
+          itemList.filter((item) => {
+            return (
+              item.details.name
+                .toLowerCase()
+                .indexOf(searchName.toLowerCase()) !== -1
+            );
+          }),
+          selectedItemType
+        )
       );
     }
   };
@@ -158,56 +164,59 @@ function App() {
         <></>
       )}
       <header>
-        {loggedIn ? (
+        <div id="headderButtonContainer">
+          {loggedIn ? (
+            <button
+              id="addItemButton"
+              className={`${mode ? "dark" : "light"}Mode ${
+                mode ? "dark" : "light"
+              }Button`}
+              onClick={() => {
+                console.log("Clicked add Item");
+                setShowAddItem(true);
+              }}
+            >
+              Add Item
+            </button>
+          ) : (
+            <button
+              id="loginButton"
+              className={`${mode ? "dark" : "light"}Mode ${
+                mode ? "dark" : "light"
+              }Button`}
+              onClick={() => {
+                setShowLogin(true);
+              }}
+            >
+              Login
+            </button>
+          )}
+          {loggedIn ? (
+            <button
+              id="logoutButton"
+              className={`${mode ? "dark" : "light"}Mode ${
+                mode ? "dark" : "light"
+              }Button`}
+              onClick={() => {
+                logout();
+              }}
+            >
+              LOGOUT
+            </button>
+          ) : (
+            <></>
+          )}
           <button
-            id="addItemButton"
+            id="modeButton"
+            onClick={() => setMode(mode ? 0 : 1)}
             className={`${mode ? "dark" : "light"}Mode ${
               mode ? "dark" : "light"
             }Button`}
-            onClick={() => {
-              console.log("Clicked add Item");
-              setShowAddItem(true);
-            }}
-          >
-            Add Item
-          </button>
-        ) : (
-          <button
-            id="loginButton"
-            className={`${mode ? "dark" : "light"}Mode ${
-              mode ? "dark" : "light"
-            }Button`}
-            onClick={() => {
-              setShowLogin(true);
-            }}
-          >
-            Login
-          </button>
-        )}
-        {loggedIn ? (
-          <button
-            id="logoutButton"
-            className={`${mode ? "dark" : "light"}Mode ${
-              mode ? "dark" : "light"
-            }Button`}
-            onClick={() => {
-              logout();
-            }}
-          >
-            LOGOUT
-          </button>
-        ) : (
-          <></>
-        )}
-        <h1 id="title">My Collection {process.env.TEST === "test"}</h1>
-        <button
-          id="modeButton"
-          onClick={() => setMode(mode ? 0 : 1)}
-          className={`${mode ? "dark" : "light"}Mode ${
-            mode ? "dark" : "light"
-          }Button`}
-          style={{ marginLeft: "1em" }}
-        >{`${mode ? "Dark" : "Light"} Mode`}</button>
+            style={{ marginLeft: "1em" }}
+          >{`${mode ? "Dark" : "Light"} Mode`}</button>
+        </div>
+        <h1 id="title">My Collection </h1>
+
         <Search mode={mode} setSearchName={setSearchName} />
       </header>
       <ItemTypeSelectBar
