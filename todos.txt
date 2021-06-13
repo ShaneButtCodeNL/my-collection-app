@@ -23,9 +23,11 @@ TODOS:
 [X]  Implement Name search
         -Set up simple search if an item's name property contains the value it will be returned
 []  Implement advance search
-[/]  improve sizes for edit info boxes
-        -Created custom textinput boxes need to implement
-[]  Implement better custom select tags
+[X]  improve sizes for edit info boxes
+        -Created custom textinput boxes
+        -May want to tweek later
+[/]  Implement better custom select tags
+        -Needs to be implemented and tested further
 []  Implement better custom Date inputs
 [X]  Implement LogOut
 [X]  Reset Login timer when actions occurs

@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import TextInput from "./TextInput";
+import CustomSelect from "./CustomSelect";
 
 const DETAIL_NAMES = {
   name: "Name",
@@ -20,6 +21,7 @@ const DETAIL_NAMES = {
   platform: "Platform",
   hasCase: "Has A Case",
 };
+const MediaTypes = ["DVD", "BluRay", "Digital", "VHS"];
 const ITEM_TYPES = {
   anime: "Anime",
   manga: "Manga",
@@ -82,38 +84,49 @@ const VideoGameGenres = [
   "Rhythm",
   "Battle Royal",
 ];
+//Lists for custom Selects
+const MediaTypesList = MediaTypes.map((val) => {
+  return { name: val, value: val };
+});
+const AnimeGenresList = AnimeGenres.map((val) => {
+  return { name: val, value: val };
+});
+const VideoGameGenresList = VideoGameGenres.map((val) => {
+  return { name: val, value: val };
+});
+const BooleanList = [
+  { name: "Yes", value: "yes" },
+  { name: "No", value: "no" },
+];
+
 export default function EditDetail(props) {
   const [detail, setDetail] = useState(props.detailData);
+  const [genre1, setGenre1] = useState(null);
+  const [genre2, setGenre2] = useState(null);
+  const [genre3, setGenre3] = useState(null);
   const detailRef = useRef(null);
-  const genreRefs = [useRef(null), useRef(null), useRef(null)];
-  const updateGenres = (refs) => {
+  const updateGenres = (genres) => {
     const listOfGenres = [];
-    refs.forEach((ref) => {
-      if (ref) {
-        if (ref.current.value !== "None") listOfGenres.push(ref.current.value);
-      }
+    genres.forEach((genre) => {
+      if (genre !== "None") listOfGenres.push(genre);
     });
-    console.log(listOfGenres);
     setDetail([...listOfGenres]);
   };
+  useEffect(() => {
+    updateGenres([genre1, genre2, genre3]);
+  }, [genre1, genre2, genre3]);
   const renderInputs = (itemID, itemType, detailName, detailData) => {
     //console.log(detailData);
     switch (detailName) {
       case DETAIL_NAMES.ageRestricted:
-        console.log("AGE RESTRICTED: ", detailData);
         return (
-          <select
-            id="ageRestricted"
-            name="ageRestricted"
-            defaultValue={detailData === "No" ? "no" : "yes"}
-            ref={detailRef}
-            onChange={() => {
-              setDetail(detailRef.current.value);
-            }}
-          >
-            <option value="no">No</option>
-            <option value="yes">Yes</option>
-          </select>
+          <CustomSelect
+            mode={props.mode}
+            onChangeFunction={setDetail}
+            items={BooleanList}
+            name={detail}
+            value={detail === "Yes" ? "yes" : "no"}
+          />
         );
       case DETAIL_NAMES.author:
         return (
@@ -145,104 +158,73 @@ export default function EditDetail(props) {
       case DETAIL_NAMES.genres:
         return (
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <select
+            <CustomSelect
               id="genreOne"
-              defaultValue={detailData.length > 0 ? detailData[0] : "None"}
-              ref={genreRefs[0]}
-              onChange={() => updateGenres(genreRefs)}
-            >
-              {(itemType === ITEM_TYPES.anime
-                ? AnimeGenres
-                : VideoGameGenres
-              ).map((genreName, index) => {
-                return (
-                  <option key={index} value={genreName}>
-                    {genreName}
-                  </option>
-                );
-              })}
-            </select>
-            <select
+              mode={props.mode}
+              onChangeFunction={setGenre1}
+              items={
+                itemType === ITEM_TYPES.anime
+                  ? AnimeGenresList
+                  : VideoGameGenresList
+              }
+              name={detailData.length > 0 ? detailData[0] : "None"}
+              value={detailData.length > 0 ? detailData[0] : "None"}
+            />
+            <CustomSelect
               id="genreTwo"
-              defaultValue={detailData.length > 1 ? detailData[1] : "None"}
-              ref={genreRefs[1]}
-              onChange={() => updateGenres(genreRefs)}
-            >
-              {(itemType === ITEM_TYPES.anime
-                ? AnimeGenres
-                : VideoGameGenres
-              ).map((genreName, index) => {
-                return (
-                  <option key={index} value={genreName}>
-                    {genreName}
-                  </option>
-                );
-              })}
-            </select>
-            <select
+              mode={props.mode}
+              onChangeFunction={setGenre2}
+              items={
+                itemType === ITEM_TYPES.anime
+                  ? AnimeGenresList
+                  : VideoGameGenresList
+              }
+              name={detailData.length > 1 ? detailData[1] : "None"}
+              value={detailData.length > 1 ? detailData[1] : "None"}
+            />
+            <CustomSelect
               id="genreThree"
-              defaultValue={detailData.length === 3 ? detailData[2] : "None"}
-              ref={genreRefs[2]}
-              onChange={() => updateGenres(genreRefs)}
-            >
-              {(itemType === ITEM_TYPES.anime
-                ? AnimeGenres
-                : VideoGameGenres
-              ).map((genreName, index) => {
-                return (
-                  <option key={index} value={genreName}>
-                    {genreName}
-                  </option>
-                );
-              })}
-            </select>
+              mode={props.mode}
+              onChangeFunction={setGenre3}
+              items={
+                itemType === ITEM_TYPES.anime
+                  ? AnimeGenresList
+                  : VideoGameGenresList
+              }
+              name={detailData.length > 2 ? detailData[2] : "None"}
+              value={detailData.length > 2 ? detailData[2] : "None"}
+            />
           </div>
         );
       case DETAIL_NAMES.hasCase:
         return (
-          <select
-            id="ageRestricted"
-            name="ageRestricted"
-            defaultValue={detailData === "No" ? "no" : "yes"}
-            ref={detailRef}
-            onChange={() => {
-              setDetail(detailRef.current.value);
-            }}
-          >
-            <option value="no">No</option>
-            <option value="yes">Yes</option>
-          </select>
+          <CustomSelect
+            mode={props.mode}
+            onChangeFunction={setDetail}
+            items={BooleanList}
+            name={detail}
+            value={detail === "Yes" ? "yes" : "no"}
+          />
         );
       case DETAIL_NAMES.limitedEdition:
         return (
-          <select
-            id="limitedEdition"
-            name="limitedEdition"
-            defaultValue={detailData === "No" ? "no" : "yes"}
-            ref={detailRef}
-            onChange={() => {
-              setDetail(detailRef.current.value);
-            }}
-          >
-            <option value="no">No</option>
-            <option value="yes">Yes</option>
-          </select>
+          <CustomSelect
+            mode={props.mode}
+            onChangeFunction={setDetail}
+            items={BooleanList}
+            name={detail}
+            value={detail === "Yes" ? "yes" : "no"}
+          />
         );
       case DETAIL_NAMES.mediaType:
         return (
-          <select
-            id="mediaType"
-            defaultValue={detailData}
-            ref={detailRef}
-            onChange={() => {
-              setDetail(detailRef.current.value);
-            }}
-          >
-            <option value="DVD">DVD</option>
-            <option value="BluRay">BluRay</option>
-            <option value="VHS">VHS</option>
-            <option value="Digital">Digital</option>
-          </select>
+          <CustomSelect
+            mode={props.mode}
+            onChangeFunction={setDetail}
+            items={MediaTypesList}
+            name={detail}
+            value={detail}
+          />
         );
       case DETAIL_NAMES.name:
         return (
@@ -312,18 +294,13 @@ export default function EditDetail(props) {
         );
       case DETAIL_NAMES.sealed:
         return (
-          <select
-            id="ageRestricted"
-            name="ageRestricted"
-            defaultValue={detailData === "No" ? "no" : "yes"}
-            ref={detailRef}
-            onChange={() => {
-              setDetail(detailRef.current.value);
-            }}
-          >
-            <option value="no">No</option>
-            <option value="yes">Yes</option>
-          </select>
+          <CustomSelect
+            mode={props.mode}
+            onChangeFunction={setDetail}
+            items={BooleanList}
+            name={detail}
+            value={detail === "Yes" ? "yes" : "no"}
+          />
         );
       case DETAIL_NAMES.series:
         return (

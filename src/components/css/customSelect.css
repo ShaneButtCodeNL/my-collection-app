@@ -1,0 +1,43 @@
+.customSelectContainer {
+  width: 24ch;
+  height: 1.1em;
+  line-height: 1.1em;
+  border: solid 1px;
+}
+.customSelect {
+  padding: 0 0.5ch 0 1ch;
+  display: flex;
+  justify-content: space-between;
+}
+.dropDownMenu {
+  overflow: auto;
+  border: outset 1px;
+  max-height: calc(5 * 1.6em);
+  position: relative;
+  z-index: 2;
+}
+.darkDropDownMenu {
+  background-color: rgb(0, 0, 5);
+}
+.lightDropDownMenu {
+  background-color: rgb(240, 240, 240);
+}
+.dropDownMenuItem {
+  padding: 0.3em;
+  cursor: default;
+  height: 1em;
+}
+.darkDropDownMenuItem:hover {
+  background-color: rgb(50, 50, 55);
+}
+.lightDropDownMenuItem:hover {
+  background-color: rgb(200, 200, 200);
+}
+.darkSelected {
+  border-block: solid 1px;
+  border-color: rgba(230, 230, 30, 0.5);
+}
+.lightSelected {
+  border-block: solid 1px;
+  border-color: rgba(150, 150, 150, 0.5);
+}

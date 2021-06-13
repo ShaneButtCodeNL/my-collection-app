@@ -16,6 +16,7 @@ import "./css/TextInput.css";
 export default function TextInput(props) {
   const [focused, setFocused] = useState(false);
   const [text, setText] = useState("");
+  const [initialText] = useState(props.text);
   const inputRef = useRef(props.ref ? props.ref : null);
   /**
    * Sets Focus to the inner div when wrapper is clicked
@@ -29,8 +30,8 @@ export default function TextInput(props) {
   };
   //Sets initial text in div only on load
   useEffect(() => {
-    setText(props.text);
-  }, []);
+    setText(initialText);
+  }, [initialText]);
   return (
     <div
       onClick={() => setFocus()}

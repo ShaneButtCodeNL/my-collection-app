@@ -196,6 +196,7 @@ export default function ItemDisplay(props) {
                 reloadList={props.reloadList}
                 resetStates={resetStates}
                 APISERVER={props.APISERVER}
+                mode={props.mode}
               />
             ) : (
               detailData
@@ -231,6 +232,7 @@ export default function ItemDisplay(props) {
                 APISERVER={props.APISERVER}
                 resetStates={resetStates}
                 reloadList={props.reloadList}
+                mode={props.mode}
               />
             ) : (
               detailData.map((value, index) => {
@@ -269,6 +271,7 @@ export default function ItemDisplay(props) {
               APISERVER={props.APISERVER}
               reloadList={props.reloadList}
               resetStates={resetStates}
+              mode={props.mode}
             />
           ) : (
             `${detailData}`
