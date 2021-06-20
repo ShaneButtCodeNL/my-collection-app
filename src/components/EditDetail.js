@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import TextInput from "./TextInput";
 import CustomSelect from "./CustomSelect";
+import "./css/editDetail.css";
 
 const DETAIL_NAMES = {
   name: "Name",
@@ -231,8 +232,12 @@ export default function EditDetail(props) {
           <TextInput
             ref={detailRef}
             onChangeFunction={setDetail}
+            classes={["centerTextInput"]}
             text={detail}
-            style={{ height: "1em", flexGrow: 1 }}
+            style={{
+              height: "1em",
+              flexGrow: 1,
+            }}
           />
         );
       case DETAIL_NAMES.platform:
@@ -338,7 +343,7 @@ export default function EditDetail(props) {
 
   return (
     <form
-      style={{ display: "flex" }}
+      style={{ display: "flex", alignItems: "center" }}
       onSubmit={async (event) => {
         event.preventDefault();
         let server = props.APISERVER;

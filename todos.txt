@@ -1,6 +1,3 @@
-NOTES:
-add Editing for itemtypes and imgpath
-
 
 TODOS:
 [X] Implement connection to database
@@ -17,24 +14,25 @@ TODOS:
 [X]  Implement adding new items to the database
 [X]  Implement removeing items from the collection
 [X]  Implement Editing items information
-        -Details are now editable
-        -ImgPath is now editable
-[]  Implement adding missing items
+[X]  Implement adding missing details on items
+        -Formating done
 [X]  Implement Name search
         -Set up simple search if an item's name property contains the value it will be returned
 []  Implement advance search
 [X]  improve sizes for edit info boxes
         -Created custom textinput boxes
         -May want to tweek later
-[/]  Implement better custom select tags
+[X]  Implement better custom select tags
         -Needs to be implemented and tested further
 []  Implement better custom Date inputs
 [X]  Implement LogOut
 [X]  Reset Login timer when actions occurs
         -Timer resets on mouse move or key press
-[]  Instead of loading a div of 3 items load next and prev to allow smoother transitions
+[]  Fix loading thumbnail problem
+        Instead of loading a div of 3 items load next and prev to allow smoother transitions
 
 BUGS:
+[]   Images load oddly when loading new items
 [X]  When adding items release date it doesn't format properly
 [X]  When decrementing a list that is %3=0 elements will load extra blank list
 [X]  add detail breaks out of fieldset maybe use a div wrapper

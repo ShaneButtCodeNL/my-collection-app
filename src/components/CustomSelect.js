@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCaretDown as caratDown,
@@ -23,6 +23,7 @@ import "./css/customSelect.css";
  * @returns A custom Select tag
  */
 export default function CustomSelect(props) {
+  const selectRef = useRef(null);
   const [showDropDownMenu, setShowDropDownMenu] = useState(false);
   const [items] = useState(
     props.items.map((item, index) => {
@@ -52,15 +53,28 @@ export default function CustomSelect(props) {
   const mode = () => {
     return props.mode ? "dark" : "light";
   };
+  const setFocus = () => {
+    selectRef.current.focus();
+  };
+  const setBlur = () => {
+    selectRef.current.blur();
+  };
   return (
     <div className={`customSelectWrapper`}>
       <div
         className={`customSelectContainer`}
-        onClick={() => {
-          setShowDropDownMenu(!showDropDownMenu);
+        ref={selectRef}
+        tabIndex={0}
+        onBlur={() => {
+          setShowDropDownMenu(false);
         }}
       >
-        <div className={`customSelect`}>
+        <div
+          className={`customSelect`}
+          onClick={() => {
+            setShowDropDownMenu(!showDropDownMenu);
+          }}
+        >
           <div className={`customSelectValue`}>{name ? name : ""}</div>
           <div className={`customSelectDropDownButton`}>{dropDownButton}</div>
         </div>
@@ -81,7 +95,7 @@ export default function CustomSelect(props) {
                       setSelected(item.id);
                       setValue(item.value);
                       setName(item.name);
-                      setShowDropDownMenu(false);
+                      setBlur();
                     }}
                   >
                     {item.name}

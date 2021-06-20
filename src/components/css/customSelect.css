@@ -1,5 +1,5 @@
 .customSelectContainer {
-  width: 24ch;
+  width: clamp(10ch, 30%, 24ch);
   height: 1.1em;
   line-height: 1.1em;
   border: solid 1px;
@@ -8,6 +8,10 @@
   padding: 0 0.5ch 0 1ch;
   display: flex;
   justify-content: space-between;
+}
+.customSelectDropDownButton {
+  border-left: 1px inset rgb(100, 100, 100, 0.8);
+  padding: 0 0 0 0.5ch;
 }
 .dropDownMenu {
   overflow: auto;

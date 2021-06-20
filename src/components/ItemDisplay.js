@@ -52,6 +52,7 @@ export default function ItemDisplay(props) {
   const [imgPath, setImgPath] = useState(props.item.imgPath);
 
   const imgPathRef = useRef(null);
+  const imgRef = useRef(null);
 
   const resetStates = () => {
     setShowImagePath(false);
@@ -406,7 +407,13 @@ export default function ItemDisplay(props) {
   return (
     <div className="itemDisplayWrapper">
       {showAddDetail ? (
-        <AddDetail item={props.item} setShowAddDetail={setShowAddDetail} />
+        <AddDetail
+          mode={props.mode}
+          item={props.item}
+          setShowAddDetail={setShowAddDetail}
+          APISERVER={props.APISERVER}
+          reloadList={props.reloadList}
+        />
       ) : (
         <></>
       )}
@@ -455,7 +462,16 @@ export default function ItemDisplay(props) {
           <></>
         )}
         <div className={`imgBox ${props.mode ? "dark" : "light"}ImgBox`}>
-          <img src={props.item.imgPath} alt={props.alt} />
+          <img
+            src={props.item.imgPath}
+            alt={props.alt}
+            ref={imgRef}
+            onError={() => {
+              imgRef.current.src =
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2048px-No_image_available.svg.png";
+            }}
+            style={{ border: "none", outline: "none" }}
+          />
           {props.loggedIn ? (
             <div
               className="editImgDiv"
