@@ -98,17 +98,22 @@ function App() {
 
   const applySearchName = () => {
     if (searchName) {
-      setFilterdItemList(
-        applyItemFilter(
-          itemList.filter((item) => {
-            return (
-              item.details.name
-                .toLowerCase()
-                .indexOf(searchName.toLowerCase()) !== -1
-            );
-          }),
-          selectedItemType
-        )
+      console.log("APPLY SEARCHNAME");
+      setTimeout(
+        () =>
+          setFilterdItemList(
+            applyItemFilter(
+              itemList.filter((item) => {
+                return (
+                  item.details.name
+                    .toLowerCase()
+                    .indexOf(searchName.toLowerCase()) !== -1
+                );
+              }),
+              selectedItemType
+            )
+          ),
+        350
       );
     }
   };
@@ -125,19 +130,31 @@ function App() {
           return a.type.localeCompare(b.type);
         })
       );
+      return itemList;
     }
     return;
   };
 
-  useEffect(() => {
-    apiList();
+  useEffect(async () => {
+    console.log("INITIAL LOAD OF LIST");
+    await apiList();
   }, []);
   useEffect(() => {
-    setFilterdItemList(applyItemFilter(itemList, selectedItemType));
+    console.log("APPLY FILTER TO LIST");
+    if (filteredItemList.length) {
+      console.log("USE TIMEOUT");
+      setTimeout(
+        () => setFilterdItemList(applyItemFilter(itemList, selectedItemType)),
+        350
+      );
+    } else {
+      console.log("NOT USE TIMEOUT");
+      setFilterdItemList(applyItemFilter(itemList, selectedItemType));
+    }
   }, [selectedItemType, itemList]);
   useEffect(() => {
     applySearchName();
-    setSearchName(null);
+    setTimeout(() => setSearchName(null), 355);
   }, [searchName]);
   return (
     <div
@@ -219,7 +236,11 @@ function App() {
         </div>
         <h1 id="title">My Collection </h1>
 
-        <Search mode={mode} setSearchName={setSearchName} />
+        <Search
+          mode={mode}
+          setSearchName={setSearchName}
+          selectedItemType={selectedItemType}
+        />
       </header>
       <ItemTypeSelectBar
         items={itemTypes}
@@ -236,9 +257,12 @@ function App() {
             APISERVER={APISERVER}
             reloadList={apiList}
             loggedIn={loggedIn}
+            searchName={searchName}
           />
-        ) : (
+        ) : itemList.length === 0 ? (
           <p>No Items To Display.</p>
+        ) : (
+          <div></div>
         )}
       </div>
       <footer className={`${mode ? "dark" : "light"}Footer`}>

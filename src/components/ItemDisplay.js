@@ -461,67 +461,71 @@ export default function ItemDisplay(props) {
         ) : (
           <></>
         )}
-        <div className={`imgBox ${props.mode ? "dark" : "light"}ImgBox`}>
-          <img
-            src={props.item.imgPath}
-            alt={props.alt}
-            ref={imgRef}
-            onError={() => {
-              imgRef.current.src =
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2048px-No_image_available.svg.png";
-            }}
-            style={{ border: "none", outline: "none" }}
-          />
-          {props.loggedIn ? (
-            <div
-              className="editImgDiv"
-              style={showImgPath ? { width: "100%" } : {}}
-            >
-              {showImgPath ? (
-                <form
-                  className="imgPathEditForm"
-                  onSubmit={async (event) => {
-                    event.preventDefault();
-                    const server =
-                      props.APISERVER +
-                      props.item.type.toLowerCase() +
-                      "/imagepath/" +
-                      props.item._id;
-                    console.log(server);
-                    await axios.patch(server, {
-                      imgPath: imgPath,
-                    });
-                    props.reloadList();
-                  }}
-                >
-                  <input
-                    className="imgPathEditInput"
-                    defaultValue={props.item.imgPath}
-                    ref={imgPathRef}
-                    onChange={() => {
-                      setImgPath(imgPathRef.current.value);
-                    }}
-                  />
-                  <input type="submit" value="Change" />
-                </form>
-              ) : (
-                <></>
-              )}
-              <button
-                onClick={() => setShowImagePath(!showImgPath)}
-                className={`editImgButton ${
-                  props.mode ? "dark" : "light"
-                }EditImgButton`}
+        <div className="detailsInnerBox">
+          <div className={`imgBox ${props.mode ? "dark" : "light"}ImgBox`}>
+            <img
+              src={props.item.imgPath}
+              alt={props.alt}
+              ref={imgRef}
+              onError={() => {
+                imgRef.current.src =
+                  "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2048px-No_image_available.svg.png";
+              }}
+              style={{ border: "none", outline: "none" }}
+            />
+            {props.loggedIn ? (
+              <div
+                className="editImgDiv"
+                style={showImgPath ? { width: "100%" } : {}}
               >
-                {editText}
-              </button>
-            </div>
-          ) : (
-            <></>
-          )}
-        </div>
-        <div className={`itemDetails ${props.mode ? "dark" : "Light"}Details`}>
-          {formatDetails(props.item.type, props.item._id, props.item.details)}
+                {showImgPath ? (
+                  <form
+                    className="imgPathEditForm"
+                    onSubmit={async (event) => {
+                      event.preventDefault();
+                      const server =
+                        props.APISERVER +
+                        props.item.type.toLowerCase() +
+                        "/imagepath/" +
+                        props.item._id;
+                      console.log(server);
+                      await axios.patch(server, {
+                        imgPath: imgPath,
+                      });
+                      props.reloadList();
+                    }}
+                  >
+                    <input
+                      className="imgPathEditInput"
+                      defaultValue={props.item.imgPath}
+                      ref={imgPathRef}
+                      onChange={() => {
+                        setImgPath(imgPathRef.current.value);
+                      }}
+                    />
+                    <input type="submit" value="Change" />
+                  </form>
+                ) : (
+                  <></>
+                )}
+                <button
+                  onClick={() => setShowImagePath(!showImgPath)}
+                  className={`editImgButton ${
+                    props.mode ? "dark" : "light"
+                  }EditImgButton`}
+                >
+                  {editText}
+                </button>
+              </div>
+            ) : (
+              <></>
+            )}
+          </div>
+          <div
+            className={`itemDetails ${props.mode ? "dark" : "Light"}Details`}
+          >
+            {formatDetails(props.item.type, props.item._id, props.item.details)}
+          </div>
         </div>
       </div>
     </div>

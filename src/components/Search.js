@@ -1,10 +1,19 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import "./css/search.css";
 
 export default function Search(props) {
   const searchIcon = <FontAwesomeIcon icon={faSearch} />;
+
+  const clearSearch = () => {
+    searchRef.current.innerText = "";
+    setSearchDivFocus("searchEmpty");
+  };
+
+  useEffect(() => {
+    clearSearch();
+  }, [props.selectedItemType]);
 
   const [searchDivFocus, setSearchDivFocus] = useState("searchEmpty");
   const searchRef = useRef(null);

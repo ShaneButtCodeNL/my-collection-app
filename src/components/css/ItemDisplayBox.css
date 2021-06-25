@@ -5,8 +5,13 @@ button {
 .controlButton {
   line-height: 2em;
 }
-
-#items {
+#itemsWrapper {
+  flex: 1 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.items {
   flex: 1 1;
   display: flex;
   flex-direction: column;

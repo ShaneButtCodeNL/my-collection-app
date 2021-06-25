@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSpring, animated, config } from "@react-spring/web";
 import {
   faArrowAltCircleDown,
   faArrowAltCircleUp,
@@ -19,6 +20,21 @@ export default function ItemDisplayBox(props) {
   const numberOfItems = props.itemList.length;
   //Location of first item to display in list
   const [displayOffset, setDisplayOffset] = useState(0);
+  const [fade, setFade] = useState(false);
+  const [isLoad, setIsLoad] = useState(false);
+  const [disableButtons, setDisableButtons] = useState(false);
+  const divState = useSpring({
+    to: { height: "100%", opacity: "1" },
+    from: { height: "0%", opacity: "0" },
+    config: { velocity: fade ? 0.01 : 0, ...config.default },
+    reverse: fade,
+    onRest: () => {
+      setDisableButtons(fade);
+      setFade(false);
+    },
+    delay: fade ? 0 : 400,
+  });
+
   //Increment displayOffset by one keeping in range
   const incrementOffset = () => {
     setDisplayOffset(
@@ -64,9 +80,12 @@ export default function ItemDisplayBox(props) {
     }
     return subArray;
   };
+
   useEffect(() => {
+    if (isLoad) setFade(true);
+    else setIsLoad(true);
     setDisplayOffset(0);
-  }, [props.selectedItemType]);
+  }, [props.selectedItemType, props.searchName]);
   return (
     <fieldset id="itemDisplayBox">
       <legend>{` Showing Items ${displayOffset + 1}${
@@ -78,31 +97,44 @@ export default function ItemDisplayBox(props) {
           ? `, ${((displayOffset + 2) % numberOfItems) + 1}`
           : ""
       }. Of a total of ${numberOfItems} items.`}</legend>
-      <div id="items">
-        {getSubArray().map((item, index) => {
-          return (
-            <ItemDisplay
-              key={index}
-              item={item}
-              mode={props.mode}
-              reloadList={reloadList}
-              APISERVER={props.APISERVER}
-              loggedIn={props.loggedIn}
-              displayOffset={displayOffset}
-              selectedItemType={props.selectedItemType}
-            />
-          );
-        })}
+      <div id="itemsWrapper">
+        <animated.div
+          style={{ display: "flex", opacity: 0, height: 0, ...divState }}
+        >
+          <div className="items">
+            {getSubArray().map((item, index) => {
+              return (
+                <ItemDisplay
+                  key={index}
+                  item={item}
+                  mode={props.mode}
+                  reloadList={reloadList}
+                  APISERVER={props.APISERVER}
+                  loggedIn={props.loggedIn}
+                  displayOffset={displayOffset}
+                  selectedItemType={props.selectedItemType}
+                  fade={fade}
+                />
+              );
+            })}
+          </div>
+        </animated.div>
       </div>
       <div
         id="itemDisplayController"
-        style={{ borderColor: props.mode ? lessDarkColor : lessLightColor }}
+        style={{
+          borderColor: props.mode ? lessDarkColor : lessLightColor,
+        }}
       >
         <button
           id="incrementButton"
           className={`controlButton ${props.mode ? "dark" : "light"}Button`}
+          style={disableButtons ? { opacity: 0.5 } : {}}
+          disabled={disableButtons}
           onClick={() => {
-            incrementOffset();
+            setDisableButtons(true);
+            setFade(true);
+            setTimeout(() => incrementOffset(), 300);
           }}
         >
           {upArrow}
@@ -110,8 +142,12 @@ export default function ItemDisplayBox(props) {
         <button
           id="decrementButton"
           className={`controlButton ${props.mode ? "dark" : "light"}Button`}
+          style={disableButtons ? { opacity: 0.5 } : {}}
+          disabled={disableButtons}
           onClick={() => {
-            decrementOffset();
+            setDisableButtons(true);
+            setFade(true);
+            setTimeout(() => decrementOffset(), 300);
           }}
         >
           {downArrow}

@@ -72,7 +72,7 @@ img {
 }
 .itemDisplayWrapper {
   position: relative;
-  height: clamp(115px, 30%, 520px);
+  height: clamp(0px, 30%, 520px);
   padding: 0;
   margin: calc(1.3ch + 2px) 0 calc(1.3ch + 0px) 0;
 }
@@ -85,6 +85,12 @@ img {
   padding: 0 1em;
   border-radius: 1em;
   line-height: 1.2em;
+}
+.detailsInnerBox {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  width: 100%;
 }
 .itemTypeLabel {
   position: absolute;
