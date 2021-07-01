@@ -142,3 +142,25 @@ button {
   flex: 1 1 75vh;
   overflow: auto;
 }
+
+.openText {
+  margin: auto;
+  font-size: clamp(1rem, min(20vw, 20vh) - 0.3rem, 8rem);
+  line-height: clamp(2rem, min(25vw, 25vh) - 0.3rem, 9rem);
+  font-family: "Lobster", Arial, Helvetica, sans-serif;
+}
+.openTextLetter {
+  display: inline-block;
+  text-shadow: -2px -2px rgb(129, 120, 19);
+  opacity: 0.7;
+  will-change: transform;
+  padding: 2px;
+  transition: transform 100ms;
+}
+.openTextLetter:hover {
+  opacity: 1;
+  transition: transform 500ms;
+  text-shadow: -5px -5px rgb(129, 120, 19);
+  padding: 5px;
+  transform: skewY(10deg) translate(3px, 3px) scale(1.1, 1.1);
+}

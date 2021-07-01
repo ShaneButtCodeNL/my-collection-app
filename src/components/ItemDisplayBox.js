@@ -22,14 +22,13 @@ export default function ItemDisplayBox(props) {
   const [displayOffset, setDisplayOffset] = useState(0);
   const [fade, setFade] = useState(false);
   const [isLoad, setIsLoad] = useState(false);
-  const [disableButtons, setDisableButtons] = useState(false);
   const divState = useSpring({
     to: { height: "100%", opacity: "1" },
     from: { height: "0%", opacity: "0" },
     config: { velocity: fade ? 0.01 : 0, ...config.default },
     reverse: fade,
     onRest: () => {
-      setDisableButtons(fade);
+      props.setDisableButtons(fade);
       setFade(false);
     },
     delay: fade ? 0 : 400,
@@ -129,10 +128,10 @@ export default function ItemDisplayBox(props) {
         <button
           id="incrementButton"
           className={`controlButton ${props.mode ? "dark" : "light"}Button`}
-          style={disableButtons ? { opacity: 0.5 } : {}}
-          disabled={disableButtons}
+          style={props.disableButtons ? { opacity: 0.5 } : {}}
+          disabled={props.disableButtons}
           onClick={() => {
-            setDisableButtons(true);
+            props.setDisableButtons(true);
             setFade(true);
             setTimeout(() => incrementOffset(), 300);
           }}
@@ -142,10 +141,10 @@ export default function ItemDisplayBox(props) {
         <button
           id="decrementButton"
           className={`controlButton ${props.mode ? "dark" : "light"}Button`}
-          style={disableButtons ? { opacity: 0.5 } : {}}
-          disabled={disableButtons}
+          style={props.disableButtons ? { opacity: 0.5 } : {}}
+          disabled={props.disableButtons}
           onClick={() => {
-            setDisableButtons(true);
+            props.setDisableButtons(true);
             setFade(true);
             setTimeout(() => decrementOffset(), 300);
           }}

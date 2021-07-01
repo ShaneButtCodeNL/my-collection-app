@@ -52,6 +52,8 @@ export default function Search(props) {
         ></div>
       </div>
       <button
+        disabled={!props.disableButtons}
+        style={{ opacity: props.disableButtons ? 0.5 : 1 }}
         className={`${props.mode ? "dark" : "light"}Mode ${
           props.mode ? "dark" : "light"
         }Button`}

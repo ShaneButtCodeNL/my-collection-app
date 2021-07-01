@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSpring, animated, config } from "@react-spring/web";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope as MAIL } from "@fortawesome/free-solid-svg-icons";
 import "./app.css";
@@ -8,6 +9,7 @@ import ItemTypeSelectBar from "./components/ItemTypeSelectBar";
 import LoginWindow from "./components/LoginWindow";
 import AddItemWindow from "./components/AddItemWindow";
 import Search from "./components/Search";
+
 //Test
 //Test End
 const fiveMin = 300000;
@@ -26,6 +28,16 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loginTimer, setLoginTimer] = useState(null);
   const [searchName, setSearchName] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [disableButtons, setDisableButtons] = useState(false);
+
+  const openingDivAnimation = useSpring({
+    to: { opacity: 0 },
+    from: { opacity: 1 },
+    config: config.slow,
+    delay: 6000,
+    onRest: () => setIsOpen(true),
+  });
 
   const emailIcon = <FontAwesomeIcon icon={MAIL} />;
   /**
@@ -240,6 +252,7 @@ function App() {
           mode={mode}
           setSearchName={setSearchName}
           selectedItemType={selectedItemType}
+          disableButtons={disableButtons}
         />
       </header>
       <ItemTypeSelectBar
@@ -247,6 +260,7 @@ function App() {
         mode={mode}
         selectedItemType={selectedItemType}
         setSelectedItemType={setSelectedItemType}
+        disableButtons={disableButtons}
       />
       <div className="itemBoxContainer">
         {filteredItemList.length ? (
@@ -258,6 +272,8 @@ function App() {
             reloadList={apiList}
             loggedIn={loggedIn}
             searchName={searchName}
+            disableButtons={disableButtons}
+            setDisableButtons={setDisableButtons}
           />
         ) : itemList.length === 0 ? (
           <p>No Items To Display.</p>
@@ -277,6 +293,61 @@ function App() {
           {emailIcon}
         </span>
       </footer>
+      {isOpen ? (
+        <></>
+      ) : (
+        <animated.div
+          style={{
+            ...openingDivAnimation,
+            position: "absolute",
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+            height: "100vh",
+            width: "100vw",
+            margin: 0,
+            padding: 0,
+            backgroundColor: `${mode ? "black" : "white"}`,
+            color: `${mode ? "yellow" : "black"}`,
+            zIndex: 9,
+          }}
+        >
+          <h1 className="openText">
+            <span className="openTextLetter">W</span>
+            <span className="openTextLetter">e</span>
+            <span className="openTextLetter">l</span>
+            <span className="openTextLetter">c</span>
+            <span className="openTextLetter">o</span>
+            <span className="openTextLetter">m</span>
+            <span className="openTextLetter">e</span>
+            <span className="openTextLetter"> </span>
+            <span className="openTextLetter">T</span>
+            <span className="openTextLetter">o</span>
+            <br />
+            <span className="openTextLetter">M</span>
+            <span className="openTextLetter">y</span>
+            <span className="openTextLetter"> </span>
+            <span className="openTextLetter">C</span>
+            <span className="openTextLetter">o</span>
+            <span className="openTextLetter">l</span>
+            <span className="openTextLetter">l</span>
+            <span className="openTextLetter">e</span>
+            <span className="openTextLetter">c</span>
+            <span className="openTextLetter">t</span>
+            <span className="openTextLetter">i</span>
+            <span className="openTextLetter">o</span>
+            <span className="openTextLetter">n</span>
+            <span className="openTextLetter"> </span>
+            <span className="openTextLetter">T</span>
+            <span className="openTextLetter">r</span>
+            <span className="openTextLetter">a</span>
+            <span className="openTextLetter">c</span>
+            <span className="openTextLetter">k</span>
+            <span className="openTextLetter">e</span>
+            <span className="openTextLetter">r</span>
+          </h1>
+        </animated.div>
+      )}
     </div>
   );
 }

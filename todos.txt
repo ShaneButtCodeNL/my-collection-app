@@ -28,11 +28,13 @@ TODOS:
 [X]  Implement LogOut
 [X]  Reset Login timer when actions occurs
         -Timer resets on mouse move or key press
-[]  Fix loading thumbnail problem
-        Instead of loading a div of 3 items load next and prev to allow smoother transitions
 
 BUGS:
-[]   Images load oddly when loading new items
+[]      Breaks when press enter multiple times on search
+[]      Breaks when search results come back with no results
+[X]    Breaks if double click search button
+[X]   Images load oddly when loading new items
+        -Animations hide this now much smoother
 [X]  When adding items release date it doesn't format properly
 [X]  When decrementing a list that is %3=0 elements will load extra blank list
 [X]  add detail breaks out of fieldset maybe use a div wrapper

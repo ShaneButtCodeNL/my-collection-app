@@ -14,14 +14,17 @@ export default function ItemSelectBar(props) {
             style={
               index === props.selectedItemType
                 ? {
+                    opacity: props.disableButtons ? 0.5 : 1,
                     backgroundColor: props.mode
                       ? lessDarkColor
                       : lessLightColor,
                     flexGrow: 1.75,
                   }
-                : {}
+                : { opacity: props.disableButtons ? 0.5 : 1 }
             }
-            onClick={() => props.setSelectedItemType(index)}
+            onClick={() => {
+              if (!props.disableButtons) props.setSelectedItemType(index);
+            }}
           >
             {itemType.toUpperCase()}
           </li>
