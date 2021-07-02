@@ -20,18 +20,17 @@ export default function ItemDisplayBox(props) {
   const numberOfItems = props.itemList.length;
   //Location of first item to display in list
   const [displayOffset, setDisplayOffset] = useState(0);
-  const [fade, setFade] = useState(false);
   const [isLoad, setIsLoad] = useState(false);
   const divState = useSpring({
     to: { height: "100%", opacity: "1" },
     from: { height: "0%", opacity: "0" },
-    config: { velocity: fade ? 0.01 : 0, ...config.default },
-    reverse: fade,
+    config: { velocity: props.fade ? 0.01 : 0, ...config.default },
+    reverse: props.fade,
     onRest: () => {
-      props.setDisableButtons(fade);
-      setFade(false);
+      props.setDisableButtons(props.fade);
+      props.setFade(false);
     },
-    delay: fade ? 0 : 400,
+    delay: props.fade ? 0 : 400,
   });
 
   //Increment displayOffset by one keeping in range
@@ -81,7 +80,7 @@ export default function ItemDisplayBox(props) {
   };
 
   useEffect(() => {
-    if (isLoad) setFade(true);
+    if (isLoad) props.setFade(true);
     else setIsLoad(true);
     setDisplayOffset(0);
   }, [props.selectedItemType, props.searchName]);
@@ -112,7 +111,7 @@ export default function ItemDisplayBox(props) {
                   loggedIn={props.loggedIn}
                   displayOffset={displayOffset}
                   selectedItemType={props.selectedItemType}
-                  fade={fade}
+                  fade={props.fade}
                 />
               );
             })}
@@ -128,11 +127,11 @@ export default function ItemDisplayBox(props) {
         <button
           id="incrementButton"
           className={`controlButton ${props.mode ? "dark" : "light"}Button`}
-          style={props.disableButtons ? { opacity: 0.5 } : {}}
-          disabled={props.disableButtons}
+          style={props.disableButtons || props.fade ? { opacity: 0.5 } : {}}
+          disabled={props.disableButtons || props.fade}
           onClick={() => {
             props.setDisableButtons(true);
-            setFade(true);
+            props.setFade(true);
             setTimeout(() => incrementOffset(), 300);
           }}
         >
@@ -141,11 +140,11 @@ export default function ItemDisplayBox(props) {
         <button
           id="decrementButton"
           className={`controlButton ${props.mode ? "dark" : "light"}Button`}
-          style={props.disableButtons ? { opacity: 0.5 } : {}}
-          disabled={props.disableButtons}
+          style={props.disableButtons || props.fade ? { opacity: 0.5 } : {}}
+          disabled={props.disableButtons || props.fade}
           onClick={() => {
             props.setDisableButtons(true);
-            setFade(true);
+            props.setFade(true);
             setTimeout(() => decrementOffset(), 300);
           }}
         >

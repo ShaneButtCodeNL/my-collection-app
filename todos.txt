@@ -30,13 +30,14 @@ TODOS:
         -Timer resets on mouse move or key press
 
 BUGS:
-[]      Breaks when press enter multiple times on search
-[]      Breaks when search results come back with no results
-[X]    Breaks if double click search button
-[X]   Images load oddly when loading new items
-        -Animations hide this now much smoother
-[X]  When adding items release date it doesn't format properly
-[X]  When decrementing a list that is %3=0 elements will load extra blank list
-[X]  add detail breaks out of fieldset maybe use a div wrapper
-        -Replaced fieldset with a div
-[]  breaks around 311px width or 170px height
+[X]      Breaks when press enter multiple times on search
+[X]      Breaks when search results come back with no results
+                -Needs a message to tell user no results found
+[X]      Breaks if double click search button
+[X]      Images load oddly when loading new items
+                -Animations hide this now much smoother
+[X]     When adding items release date it doesn't format properly
+[X]     When decrementing a list that is %3=0 elements will load extra blank list
+[X]     add detail breaks out of fieldset maybe use a div wrapper
+                -Replaced fieldset with a div
+[]      breaks around 311px width or 170px height

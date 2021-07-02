@@ -29,6 +29,7 @@ function App() {
   const [loginTimer, setLoginTimer] = useState(null);
   const [searchName, setSearchName] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [fade, setFade] = useState(true);
   const [disableButtons, setDisableButtons] = useState(false);
 
   const openingDivAnimation = useSpring({
@@ -111,22 +112,17 @@ function App() {
   const applySearchName = () => {
     if (searchName) {
       console.log("APPLY SEARCHNAME");
-      setTimeout(
-        () =>
-          setFilterdItemList(
-            applyItemFilter(
-              itemList.filter((item) => {
-                return (
-                  item.details.name
-                    .toLowerCase()
-                    .indexOf(searchName.toLowerCase()) !== -1
-                );
-              }),
-              selectedItemType
-            )
-          ),
-        350
-      );
+      setTimeout(() => {
+        const searchedList = [...itemList].filter((item) => {
+          return (
+            item.details.name
+              .toLowerCase()
+              .indexOf(searchName.toLowerCase()) !== -1
+          );
+        });
+        if (searchedList.length)
+          setFilterdItemList(applyItemFilter(searchedList, selectedItemType));
+      }, 350);
     }
   };
 
@@ -253,6 +249,7 @@ function App() {
           setSearchName={setSearchName}
           selectedItemType={selectedItemType}
           disableButtons={disableButtons}
+          fade={fade}
         />
       </header>
       <ItemTypeSelectBar
@@ -260,6 +257,7 @@ function App() {
         mode={mode}
         selectedItemType={selectedItemType}
         setSelectedItemType={setSelectedItemType}
+        fade={fade}
         disableButtons={disableButtons}
       />
       <div className="itemBoxContainer">
@@ -274,6 +272,8 @@ function App() {
             searchName={searchName}
             disableButtons={disableButtons}
             setDisableButtons={setDisableButtons}
+            fade={fade}
+            setFade={setFade}
           />
         ) : itemList.length === 0 ? (
           <p>No Items To Display.</p>

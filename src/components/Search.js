@@ -44,16 +44,17 @@ export default function Search(props) {
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               e.preventDefault();
-              props.setSearchName(
-                document.querySelector("#searchDiv").textContent
-              );
+              if (!props.disableButtons && !props.fade)
+                props.setSearchName(
+                  document.querySelector("#searchDiv").textContent
+                );
             }
           }}
         ></div>
       </div>
       <button
-        disabled={!props.disableButtons}
-        style={{ opacity: props.disableButtons ? 0.5 : 1 }}
+        disabled={props.disableButtons || props.fade}
+        style={{ opacity: props.disableButtons || props.fade ? 0.5 : 1 }}
         className={`${props.mode ? "dark" : "light"}Mode ${
           props.mode ? "dark" : "light"
         }Button`}
