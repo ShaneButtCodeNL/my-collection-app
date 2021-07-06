@@ -99,7 +99,28 @@ const BooleanList = [
   { name: "Yes", value: "yes" },
   { name: "No", value: "no" },
 ];
-
+const months = {
+  Jan: "01",
+  Feb: "02",
+  Mar: "03",
+  Apr: "04",
+  May: "05",
+  Jun: "06",
+  Jul: "07",
+  Aug: "08",
+  Sep: "09",
+  Oct: "10",
+  Nov: "11",
+  Dec: "12",
+};
+/**
+ * Turns date String to formated string yyyy-mm-dd
+ * @param {String} s
+ */
+const stringToDate = (s) => {
+  const [month, day, year] = s.split(" ");
+  return `${year}-${months[month]}-${day}`;
+};
 export default function EditDetail(props) {
   const [detail, setDetail] = useState(props.detailData);
   const [genre1, setGenre1] = useState(null);
@@ -290,6 +311,7 @@ export default function EditDetail(props) {
             name="releaseDate"
             type="date"
             ref={detailRef}
+            defaultValue={stringToDate(detailData)}
             onChange={() => {
               let date = new Date(detailRef.current.value);
               date.setDate(date.getDate() + 1);
