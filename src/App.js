@@ -11,7 +11,6 @@ import AddItemWindow from "./components/AddItemWindow";
 import Search from "./components/Search";
 
 //Test
-import CustomDateSelector from "./components/CustomDateSelector";
 
 //Test End
 const fiveMin = 300000;
@@ -21,8 +20,6 @@ const APISERVER = "http://localhost:8000/";
 //Types of Items
 const itemTypes = ["All", "Manga", "Anime", "Figure", "Video Game"];
 function App() {
-  const [testDate, setTestDate] = useState("Feb 02 1989");
-
   const [mode, setMode] = useState(1);
   const [selectedItemType, setSelectedItemType] = useState(0);
   const [itemList, setItemList] = useState([]);
@@ -282,11 +279,6 @@ function App() {
         ) : itemList.length === 0 ? (
           <>
             <p>No Items To Display.</p>
-            <CustomDateSelector
-              mode={mode}
-              defaultDate={testDate}
-              onChangeFunction={setTestDate}
-            />
           </>
         ) : (
           <div></div>

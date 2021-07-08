@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import TextInput from "./TextInput";
 import CustomSelect from "./CustomSelect";
+import CustomDateSelector from "./CustomDateSelector";
 import "./css/editDetail.css";
 
 const DETAIL_NAMES = {
@@ -22,6 +23,20 @@ const DETAIL_NAMES = {
   platform: "Platform",
   hasCase: "Has A Case",
 };
+const MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 const MediaTypes = ["DVD", "BluRay", "Digital", "VHS"];
 const ITEM_TYPES = {
   anime: "Anime",
@@ -306,17 +321,10 @@ export default function EditDetail(props) {
         );
       case DETAIL_NAMES.releaseDate:
         return (
-          <input
-            id="releaseDate"
-            name="releaseDate"
-            type="date"
-            ref={detailRef}
-            defaultValue={stringToDate(detailData)}
-            onChange={() => {
-              let date = new Date(detailRef.current.value);
-              date.setDate(date.getDate() + 1);
-              setDetail(date);
-            }}
+          <CustomDateSelector
+            defaultDate={detailData}
+            mode={props.mode}
+            onChangeFunction={setDetail}
           />
         );
       case DETAIL_NAMES.sealed:
@@ -485,8 +493,14 @@ export default function EditDetail(props) {
             break;
           //Anime VideoGame
           case DETAIL_NAMES.releaseDate:
-            let date = new Date(detailRef.current.value);
-            date.setDate(date.getDate() + 1);
+            console.log("DATE+", detail);
+            let [m, d, y] = detail.split(" ");
+            y = Number.parseInt(y);
+            d = Number.parseInt(d);
+            m = MONTHS.indexOf(m);
+            console.log(m, d, y);
+            let date = new Date();
+            date.setFullYear(y, m, d);
             await axios.patch(`${server}releasedate/${props.itemID}`, {
               details: { releaseDate: date },
             });

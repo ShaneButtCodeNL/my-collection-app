@@ -18,6 +18,7 @@ const MONTHS = [
 ];
 
 export default function CustomDateSelector(props) {
+  console.log("DATE INPUT ", props.defaultDate);
   const [showDateSelector, setShowDateSelector] = useState(false);
   const [slide, setSlide] = useState(false);
   const [year, setYear] = useState(
@@ -45,15 +46,13 @@ export default function CustomDateSelector(props) {
 
   const slideSpring = useSpring({
     from: { left: "-35ch" },
-    to: { left: "1ch" },
+    to: { left: slide ? "1ch" : "-35ch" },
     config: config.slow,
-    reverse: !slide,
   });
   const slideSpringRev = useSpring({
     from: { left: "1ch" },
-    to: { left: "-35ch" },
+    to: { left: slide ? "-35ch" : "1ch" },
     config: config.slow,
-    reverse: !slide,
   });
   const dayString = (dayNum) => {
     if (dayNum < 10) return `0${dayNum}`;
@@ -107,7 +106,14 @@ export default function CustomDateSelector(props) {
           onClick={() => setSlide(true)}
         >{`${month} ${dayString(day)} ${year}`}</div>
       </animated.div>
-      <animated.div style={{ position: "absolute", top: 0, ...slideSpring }}>
+      <animated.div
+        style={{
+          position: "absolute",
+          height: "100%",
+          top: 0,
+          ...slideSpring,
+        }}
+      >
         <div className="dateSelectInputBar">
           <CustomSelect
             mode={props.mode}
@@ -140,15 +146,6 @@ export default function CustomDateSelector(props) {
               }
             )}
           />
-          <button
-            style={{ margin: 0 }}
-            className={`${props.mode ? "dark" : "light"}Mode ${
-              props.mode ? "dark" : "light"
-            }Button`}
-            onClick={() => setSlide(false)}
-          >
-            OK
-          </button>
         </div>
       </animated.div>
     </div>
