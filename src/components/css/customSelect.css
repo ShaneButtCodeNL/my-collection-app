@@ -1,7 +1,12 @@
-.customSelectContainer {
-  width: clamp(10ch, 30%, 24ch);
+.customSelectWrapper {
+  position: relative;
+  width: 12ch;
   height: 1.1em;
   line-height: 1.1em;
+}
+.customSelectContainer {
+  width: 100%;
+  height: 100%;
   border: solid 1px;
 }
 .customSelect {

@@ -60,7 +60,10 @@ export default function CustomSelect(props) {
     selectRef.current.blur();
   };
   return (
-    <div className={`customSelectWrapper`}>
+    <div
+      className={`customSelectWrapper`}
+      style={props.style ? props.style : {}}
+    >
       <div
         className={`customSelectContainer`}
         ref={selectRef}

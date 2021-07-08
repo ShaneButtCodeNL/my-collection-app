@@ -1,4 +1,22 @@
-.customDateSelectorContainer {
+.customDateSelectContainer {
   position: relative;
-  z-index: -1;
+  width: 35ch;
+  height: 2em;
+  padding: 0 1ch;
+  z-index: 0;
+  overflow-y: unset;
+  overflow-x: clip;
+}
+.dateDisplay {
+  border: 1px outset;
+  padding: 0.5ch;
+  cursor: pointer;
+  transition: filter 0.3s ease-in;
+}
+.dateDisplay:hover {
+  filter: brightness(2);
+}
+.dateSelectInputBar {
+  display: flex;
+  gap: 1ch;
 }
