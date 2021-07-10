@@ -1,8 +1,10 @@
 .customSelectWrapper {
   position: relative;
-  width: 12ch;
+  width: 18ch;
   height: 1.1em;
   line-height: 1.1em;
+  z-index: auto;
+  cursor: default;
 }
 .customSelectContainer {
   width: 100%;
@@ -19,11 +21,12 @@
   padding: 0 0 0 0.5ch;
 }
 .dropDownMenu {
-  overflow: auto;
-  border: outset 1px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  outline: outset 1px;
   max-height: calc(5 * 1.6em);
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }
 .darkDropDownMenu {
   background-color: rgb(0, 0, 5);

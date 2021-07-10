@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSpring, config, animated } from "@react-spring/web";
 import CustomSelect from "./CustomSelect";
-import TextInput from "./TextInput";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDoubleLeft } from "@fortawesome/free-solid-svg-icons";
 import "./css/customDateSelector.css";
 const MONTHS = [
   "Jan",
@@ -16,6 +17,8 @@ const MONTHS = [
   "Nov",
   "Dec",
 ];
+
+const leftIcon = <FontAwesomeIcon icon={faAngleDoubleLeft} />;
 
 export default function CustomDateSelector(props) {
   console.log("DATE INPUT ", props.defaultDate);
@@ -45,14 +48,14 @@ export default function CustomDateSelector(props) {
   });
 
   const slideSpring = useSpring({
-    from: { left: "-35ch" },
-    to: { left: slide ? "1ch" : "-35ch" },
-    config: config.slow,
+    from: { left: "-35ch", opacity: 0 },
+    to: { left: slide ? "1ch" : "-35ch", opacity: slide ? 1 : 0 },
+    config: config.molasses,
   });
   const slideSpringRev = useSpring({
-    from: { left: "1ch" },
-    to: { left: slide ? "-35ch" : "1ch" },
-    config: config.slow,
+    from: { left: "1ch", opacity: 1 },
+    to: { left: slide ? "-35ch" : "1ch", opacity: slide ? 0 : 1 },
+    config: config.molasses,
   });
   const dayString = (dayNum) => {
     if (dayNum < 10) return `0${dayNum}`;
@@ -101,10 +104,17 @@ export default function CustomDateSelector(props) {
           placeItems: "center",
         }}
       >
-        <div
-          className="dateDisplay"
-          onClick={() => setSlide(true)}
-        >{`${month} ${dayString(day)} ${year}`}</div>
+        <div className="dateDisplay" onClick={() => setSlide(true)}>
+          <FontAwesomeIcon
+            icon={faAngleDoubleLeft}
+            style={{
+              borderRight: "solid 1px",
+              paddingRight: ".5ch",
+              marginRight: ".5ch",
+            }}
+          />
+          {`${month} ${dayString(day)} ${year}`}
+        </div>
       </animated.div>
       <animated.div
         style={{
@@ -115,6 +125,9 @@ export default function CustomDateSelector(props) {
         }}
       >
         <div className="dateSelectInputBar">
+          <div onClick={() => setSlide(false)} className="slideButton">
+            {leftIcon}
+          </div>
           <CustomSelect
             mode={props.mode}
             onChangeFunction={setMonth}

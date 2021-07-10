@@ -20,15 +20,23 @@ export default function ItemDisplayBox(props) {
   const numberOfItems = props.itemList.length;
   //Location of first item to display in list
   const [displayOffset, setDisplayOffset] = useState(0);
+  const [goUp, setGoUp] = useState(false);
   const [isLoad, setIsLoad] = useState(false);
   const divState = useSpring({
-    to: { height: "100%", opacity: "1" },
-    from: { height: "0%", opacity: "0" },
-    config: { velocity: props.fade ? 0.01 : 0, ...config.default },
-    reverse: props.fade,
+    to: {
+      scaleY: props.fade ? 0 : 1,
+      opacity: props.fade ? "0" : "1",
+    },
+    from: {
+      scaleY: props.fade ? 1 : 0,
+      opacity: props.fade ? "1" : "0",
+    },
+
+    config: config.default,
     onRest: () => {
       props.setDisableButtons(props.fade);
       props.setFade(false);
+      setGoUp(!goUp);
     },
     delay: props.fade ? 0 : 400,
   });
@@ -97,7 +105,14 @@ export default function ItemDisplayBox(props) {
       }. Of a total of ${numberOfItems} items.`}</legend>
       <div id="itemsWrapper">
         <animated.div
-          style={{ display: "flex", opacity: 0, height: 0, ...divState }}
+          style={{
+            display: "flex",
+            opacity: 0,
+            transformOrigin: goUp ? "bottom" : "top",
+            height: "100%",
+
+            ...divState,
+          }}
         >
           <div className="items">
             {getSubArray().map((item, index) => {
@@ -130,6 +145,7 @@ export default function ItemDisplayBox(props) {
           style={props.disableButtons || props.fade ? { opacity: 0.5 } : {}}
           disabled={props.disableButtons || props.fade}
           onClick={() => {
+            setGoUp(false);
             props.setDisableButtons(true);
             props.setFade(true);
             setTimeout(() => incrementOffset(), 300);
@@ -143,6 +159,7 @@ export default function ItemDisplayBox(props) {
           style={props.disableButtons || props.fade ? { opacity: 0.5 } : {}}
           disabled={props.disableButtons || props.fade}
           onClick={() => {
+            setGoUp(true);
             props.setDisableButtons(true);
             props.setFade(true);
             setTimeout(() => decrementOffset(), 300);

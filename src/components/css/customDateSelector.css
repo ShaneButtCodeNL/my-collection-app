@@ -3,7 +3,7 @@
   width: 35ch;
   height: 2em;
   padding: 0 1ch;
-  z-index: 0;
+  z-index: auto;
   overflow-y: unset;
   overflow-x: clip;
 }
@@ -19,5 +19,11 @@
 .dateSelectInputBar {
   display: flex;
   gap: 1ch;
-  align-content: center;
+}
+.slideButton {
+  border: outset 1px;
+  padding: 0 0.5ch 0 0.3ch;
+}
+.slideButton:hover {
+  cursor: pointer;
 }

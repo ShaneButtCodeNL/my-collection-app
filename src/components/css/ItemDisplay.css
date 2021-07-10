@@ -89,7 +89,8 @@ img {
 .detailsInnerBox {
   position: relative;
   display: flex;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
   width: 100%;
 }
 .itemTypeLabel {

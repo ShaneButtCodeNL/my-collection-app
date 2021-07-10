@@ -37,7 +37,7 @@ function App() {
     to: { opacity: 0 },
     from: { opacity: 1 },
     config: config.slow,
-    delay: 6000,
+    delay: 3000,
     onRest: () => setIsOpen(true),
   });
 

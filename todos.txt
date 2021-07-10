@@ -24,12 +24,13 @@ TODOS:
         -May want to tweek later
 [X]  Implement better custom select tags
         -Needs to be implemented and tested further
-[]  Implement better custom Date inputs
+[X]  Implement better custom Date inputs
 [X]  Implement LogOut
 [X]  Reset Login timer when actions occurs
         -Timer resets on mouse move or key press
 
 BUGS:
+[]      Custom Date select no resizeing properly
 [X]      Breaks when press enter multiple times on search
 [X]      Breaks when search results come back with no results
                 -Needs a message to tell user no results found
