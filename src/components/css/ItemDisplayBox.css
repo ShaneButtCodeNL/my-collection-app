@@ -22,7 +22,7 @@ button {
   display: flex;
   overflow: auto;
   height: 100%;
-  width: clamp(300px, 70%, 900px);
+  width: clamp(350px, 70%, 1100px);
   border: none;
   margin: 0;
   padding: 0;

@@ -34,7 +34,7 @@ export default function CustomDateSelector(props) {
     props.defaultDate ? Number.parseInt(props.defaultDate.substr(4, 2)) : 1
   );
 
-  const selectStyle = { width: "9ch", margin: "auto 0" };
+  const selectStyle = { width: "8ch", margin: "auto 0" };
 
   useEffect(() => {
     props.onChangeFunction(`${month} ${day} ${year}`);
@@ -125,9 +125,6 @@ export default function CustomDateSelector(props) {
         }}
       >
         <div className="dateSelectInputBar">
-          <div onClick={() => setSlide(false)} className="slideButton">
-            {leftIcon}
-          </div>
           <CustomSelect
             mode={props.mode}
             onChangeFunction={setMonth}
@@ -144,7 +141,7 @@ export default function CustomDateSelector(props) {
             name={dayString(day) || "day"}
             items={days}
             value={day}
-            style={selectStyle}
+            style={{ ...selectStyle, width: "6ch" }}
           />
           <CustomSelect
             mode={props.mode}

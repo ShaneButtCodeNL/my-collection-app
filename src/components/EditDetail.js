@@ -3,6 +3,8 @@ import axios from "axios";
 import TextInput from "./TextInput";
 import CustomSelect from "./CustomSelect";
 import CustomDateSelector from "./CustomDateSelector";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import "./css/editDetail.css";
 
 const DETAIL_NAMES = {
@@ -100,6 +102,7 @@ const VideoGameGenres = [
   "Rhythm",
   "Battle Royal",
 ];
+const confirmIcon = <FontAwesomeIcon icon={faCheckCircle} />;
 //Lists for custom Selects
 const MediaTypesList = MediaTypes.map((val) => {
   return { name: val, value: val };
@@ -526,11 +529,7 @@ export default function EditDetail(props) {
         props.detailName,
         props.detailData
       )}
-      <input
-        type="submit"
-        value="Change"
-        style={{ flexGrow: 0, flexShrink: 1 }}
-      />
+      <button style={{ border: "none" }}>{confirmIcon}</button>
     </form>
   );
 }

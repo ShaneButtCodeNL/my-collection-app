@@ -1,6 +1,6 @@
 .customDateSelectContainer {
   position: relative;
-  width: 35ch;
+  width: 22ch;
   height: 2em;
   padding: 0 1ch;
   z-index: auto;
@@ -18,12 +18,5 @@
 }
 .dateSelectInputBar {
   display: flex;
-  gap: 1ch;
-}
-.slideButton {
-  border: outset 1px;
-  padding: 0 0.5ch 0 0.3ch;
-}
-.slideButton:hover {
-  cursor: pointer;
+  gap: 0.2ch;
 }
